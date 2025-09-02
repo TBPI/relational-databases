@@ -33,3 +33,17 @@ WHERE condition;
 A condition could for example be `Country = 'Mexico'` or `CustomerID = 1` or `CustomerID > 80`.
 
 *Remark.* The SQL statement `WHERE` is also used in other statements that `SELECT`, e.g.`UPDATE` or `DELETE`.
+
+### ORDER BY
+
+Sort results in ascending or descending order.
+```
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1, column2, ... ASC|DESC
+```
+*Remark.* For string values the ordering will be alphabetically (with `DESC` it will be reverse alphabetically).
+
+*Remark.* If you select several columns for the ordering, then it will order by `column2` if the value of `column1` agrees for two rows.
+
+
