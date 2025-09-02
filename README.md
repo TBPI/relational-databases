@@ -1,7 +1,7 @@
 # Learning SQL
 
 We want to perform actions on a database.
-Most of a *database* consists of one or more tables.
+Usually, a *database* consists of one or more tables.
 
 ## Statements
 
