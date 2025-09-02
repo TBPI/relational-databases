@@ -46,4 +46,20 @@ ORDER BY column1, column2, ... ASC|DESC
 
 *Remark.* If you select several columns for the ordering, then it will order by `column2` if the value of `column1` agrees for two rows.
 
+### AND and OR
+
+You can include `AND` or `OR` into a `WHERE` clause
+```
+SELECT column1, column2, ...
+FROM table_name
+WHERE columnx = conditionx AND|OR columny = conditiony
+``` 
+
+The `AND` operator displays a record if *all* the conditions are TRUE.\
+The `OR` operator displays a record if *at least one* of the conditions is TRUE.
+
+You can combine `AND` and `OR` using parentheses `(` `)`.
+
+### NOT
+
 
