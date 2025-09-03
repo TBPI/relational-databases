@@ -62,4 +62,5 @@ You can combine `AND` and `OR` using parentheses `(` `)`.
 
 ### NOT
 
+There are several versions of how we can use `NOT`
 
