@@ -1,4 +1,12 @@
-# Learning SQL
+# Relational databases
+
+This is takenm from [freeCodeCamp](https://www.freecodecamp.org/learn/relational-databases-v9).
+We follow their structure:
+
+1) [Code Editors](1-code-editors.md)
+2) [Bash Fundamentals](2-bash-fundamentals.md)
+
+## Older work
 
 We want to perform actions on a database.
 Usually, a *database* consists of one or more tables.
