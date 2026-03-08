@@ -17,4 +17,7 @@ Terminal emulators are 'enhanced' terminals which provide additional functionali
 
 ## Speed up productivity in the command line
 
+Similar commands for MacOS and Linux as they both have there roots in Unix.
+For Microsoft they are different.
 
+*Up arrow key* = history
