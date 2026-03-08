@@ -9,6 +9,12 @@ Terminal emulators are 'enhanced' terminals which provide additional functionali
 
 <sub>
     Microsoft has two standard terminals the Powershell and Command Prompt.
-</sup>
+
+</sub>
+ 
 
 *Shell* = software that wraps the command line and interprets the input and returns the outputs.
+
+## Speed up productivity in the command line
+
+
