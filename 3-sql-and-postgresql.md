@@ -15,3 +15,11 @@ A single *query* allows you to get the data efficiently.
 
 Non-relational databases = **NoSQL** are more flexible.
 They store data in individual files that are not connected.
+
+Relational databases have a wide range application: web development, inventory management, healthcare systems, e-commerce, etc.
+
+**Common relational databases:**
+- MySQL,
+- PostgreSQL,
+- SQLite,
+- Microsoft SQL Server. 
