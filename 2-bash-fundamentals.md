@@ -20,4 +20,16 @@ Terminal emulators are 'enhanced' terminals which provide additional functionali
 Similar commands for MacOS and Linux as they both have there roots in Unix.
 For Microsoft they are different.
 
-*Up arrow key* = history.
+*Up arrow key* = cycle backwards in history.
+
+*Down arrow key* = cycle downwards in history.
+
+*tab* = in many shells for autofill
+
+*Control + C* = kill process
+
+*Control + Z* = multitask, i.e. current process in background while your are returned to command line
+
+*!!* = run command twice
+
+*Control + L* = new terminal.
