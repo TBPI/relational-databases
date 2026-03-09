@@ -75,3 +75,7 @@ In the powershell the creation of a new file is relatively complicated, you need
 
 `--version` flag = prints current version
 `--help` flag = prints instructions
+
+There are long (usually two hypens) and short forms (one hyphen).
+Short forms allow you to easily chain different flags together.
+ 
