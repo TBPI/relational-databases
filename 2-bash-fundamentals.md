@@ -33,3 +33,5 @@ For Microsoft they are different.
 *!!* = run command twice
 
 *Control + L* = new terminal.
+
+## What is Bash?
