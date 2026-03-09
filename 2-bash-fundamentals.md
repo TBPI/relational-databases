@@ -77,5 +77,4 @@ In the powershell the creation of a new file is relatively complicated, you need
 `--help` flag = prints instructions
 
 There are long (usually two hypens) and short forms (one hyphen).
-Short forms allow you to easily chain different flags together.
- 
+Short forms allow you to easily chain different flags together. 
