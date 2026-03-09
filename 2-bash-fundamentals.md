@@ -70,3 +70,8 @@ In the powershell the creation of a new file is relatively complicated, you need
 `chmod`
 
 `man` = manual.
+
+### Command options and flags
+
+`--version` flag = prints current version
+`--help` flag = prints instructions
