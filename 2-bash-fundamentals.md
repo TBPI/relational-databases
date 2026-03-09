@@ -35,3 +35,38 @@ For Microsoft they are different.
 *Control + L* = new terminal.
 
 ## What is Bash?
+
+**BASH = Bourne Again SHell.**
+
+`pwd` = prints current working directory to shell.
+
+`cd` = change directories.
+You can move to a certain directory by giving the full path starti with `/` or move relatively. `..` allows you to move upwards.
+
+`ls` = lists contents of the directory. `-a` flag shows hidden files, `-l` flag shows file permissions. You can use `less` or `cat` to view contents of a file
+
+`mkdir` = creates new directory.
+
+`touch` = creates new file.
+
+<sub>
+In the powershell the creation of a new file is relatively complicated, you need to call `New-Item filename.md -ItemType File`
+</sub>
+
+`mv` = allows you to move or rename a file
+
+`rm` = allows you to delete a file. With `-r` flag it deletes a directory. With `-f` flag you can delete protected files.
+
+`cp` = copy a file to a new directory.
+
+`echo` = allows you to print to the terminal. You can write directly into the file using `echo "Text" > filename`.
+
+`head`
+
+`tail`
+
+`chown`
+
+`chmod`
+
+`man` = manual.
