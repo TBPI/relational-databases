@@ -23,3 +23,8 @@ Relational databases have a wide range application: web development, inventory m
 - PostgreSQL,
 - SQLite,
 - Microsoft SQL Server. 
+
+## What is SQL?
+
+**SQL = Structured Query Language.**
+*Programming language used for storing and managing data in relational databases.*
