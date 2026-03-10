@@ -28,3 +28,31 @@ Relational databases have a wide range application: web development, inventory m
 
 **SQL = Structured Query Language.**
 *Programming language used for storing and managing data in relational databases.*
+
+To open the psql shell in the command prompt/terminal you need to enter
+```
+psql -U <username> -d <database_name>
+```
+or
+```
+psql --username=<username> --dbname=<database_name>
+```
+
+You can create a database via
+```
+CREATE DATABASE my_database;
+```
+You see to which database you are connected via
+```
+<database_name>=#
+```
+For creating a table you need the `CREATE TABLE` keyword:
+```
+CREATE TABLE table_name (
+    id ---,
+    name ---
+);
+```
+you specify the number of columns separated with commas.
+
+The standard naming convention for a table and its columns is *snake case*, i.e. writing words in lowercase and separating them with an underscore.
