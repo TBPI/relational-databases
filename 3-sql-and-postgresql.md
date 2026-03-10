@@ -235,9 +235,20 @@ Then, the junction table `books_authors` consists of the author_id, and book_id.
 
 The `JOIN` operations allow you to combine related information from tables to query data.
 
-1) `INNER JOIN`: filters the results to include only rows where the values in the joining columns that you specify are equal in both tables.
-2) `FULL OUTER JOIN`
-3) `LEFT OUTER JOIN`
-4) `RIGHT OUTER JOIN`
-5) `SELF JOIN`
-6) `CROSS JOIN`
+1) `INNER JOIN`: filters the results to include only rows where the values in the joining columns that you specify are equal in both tables, e.g.
+```
+SELECT * FROM table_1 INNER JOIN table_2 ON table_1.key = table_2.key;
+```
+2) `FULL OUTER JOIN`: returns all rows from both tables.
+```
+SELECT * FROM table_1 FULL OUTER JOIN ON table_1.key = table_2.key;
+```
+3) `LEFT OUTER JOIN`: all the records from the left table and the matching from the right table:
+```
+SELECT * FROM table_1 LEFT JOIN table_2 ON table_1.key = table_2.key;
+```
+In this case, if table_2 has a row where table_2.key does not match any key in table_1, this entry will *not* be displayed.
+4) `RIGHT OUTER JOIN`: all the records from the right table and the matching one from the left table.
+5) `SELF JOIN`: join the table with itself.
+6) `CROSS JOIN`: as a Cartesian join, joins every entry of first table with every entry from second table.
+
