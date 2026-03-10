@@ -99,3 +99,5 @@ For strings of any length use `TEXT`.
 **Boolean**
 
 Called with `BOOLEAN` data type which can be set to `TRUE` or `FALSE`.
+
+## Inserting and viewing data in a table
