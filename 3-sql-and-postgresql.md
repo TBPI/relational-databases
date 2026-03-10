@@ -233,3 +233,11 @@ Then, the junction table `books_authors` consists of the author_id, and book_id.
 
 ## Different Ways to join tables
 
+The `JOIN` operations allow you to combine related information from tables to query data.
+
+1) `INNER JOIN`: filters the results to include only rows where the values in the joining columns that you specify are equal in both tables.
+2) `FULL OUTER JOIN`
+3) `LEFT OUTER JOIN`
+4) `RIGHT OUTER JOIN`
+5) `SELF JOIN`
+6) `CROSS JOIN`
