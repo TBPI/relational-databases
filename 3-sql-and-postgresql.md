@@ -49,10 +49,53 @@ You see to which database you are connected via
 For creating a table you need the `CREATE TABLE` keyword:
 ```
 CREATE TABLE table_name (
-    id ---,
-    name ---
+    column1 data_type column_constraint,
+    column2 data_type column_constraint,
+    column3 data_type column_constraint,
+    ... etc
 );
 ```
-you specify the number of columns separated with commas.
+you specify the number of columns separated with commas and the data type for each column.
+
+*Goal.* Choose data types as accurately as possible.
 
 The standard naming convention for a table and its columns is *snake case*, i.e. writing words in lowercase and separating them with an underscore.
+
+### Data types in SQL
+
+There are six popular data types in SQL:
+- *Numeric*, e.g. `INTEGER`, `FLOAT`, `SERIAL`, `DECIMAL`
+- *Date and time*, e.g. `TIMESTAMP`, `DATE`, `TIME`
+- *Character and string*, e.g. `CHAR`, `VARCHAR`, `TEXT`
+- *Unicode*, e.g. `NTEXT`, `NVARCHAR` (make surethat text will be stored and retrieved coorectly, regardless o the characters' origin),
+- *Binary* used to story non-textual data such as images, audio, video files
+- *Miscellaneous data types*: e.g. `XML`, `TABLE`
+
+**Integers**
+
+`INTEGER` types consume 4 bytes and can range from -2,147,483,648 to 2,147,483,648 in PostgreSQL.
+`SMALLINT` and `BIGINT` allow smaller and bigger range of numbers.
+
+**Serial**
+
+`SERIAL` is a very useful datatype for creating a unique identifier.
+The column has an integer data type which does
+- not allow `NULL`,
+- increment automatically with every column added.
+
+<sub>
+In MySQL the equivalent to `SERIAL` is `AUTO_INCREMENT` with the data type INT.
+</sub>
+
+**String**
+
+Using `VARCHAR` you can characterize a string of variable length. You can set a maximal length of the string by calling `VARCHAR(max_length)`.
+For strings of any length use `TEXT`.
+
+**Time**
+
+`DATE` stores the data, `TIME` is a data type for the time, `TIMESTAMP` combines both of them and you can make the time cone precise by `TIMESTAMP WITH TIME ZONE`.
+
+**Boolean**
+
+Called with `BOOLEAN` data type which can be set to `TRUE` or `FALSE`.
