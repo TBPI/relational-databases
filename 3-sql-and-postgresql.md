@@ -221,7 +221,15 @@ There are five main types of relations:
 4) *many-to-many:* one record in a table can be related to one or more records in another table, and vice versa.
 5) *self-referencing:* records in the same table are related between each other.
 
+Implementing many-to-many relationships is complex as this is not supported at the core.
+Usually you create an intermediate table, called the *junction table*.
+It creates essentially to one-to-many relationships resolving the many-to-many relationship.
 
+**Example.**
+If you have a `books` table with the columns `title`, `authors`
+and a `authors` table with the columns `name`, `books`,
+you want to see which books where written by whom and the books of the author.
+Then, the junction table `books_authors` consists of the author_id, and book_id.
 
 ## Different Ways to join tables
 
