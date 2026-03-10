@@ -214,5 +214,14 @@ Foreign keys prevent orphaned records, i.e. records referring to a non-existent 
 
 ## Different types of relationships in a relational database
 
+There are five main types of relations:
+1) *one-to-one:* each record in the first table can be associated with at most one record in the second table, and vice versa.
+2) *one-to-many:* one record in a table can be related to one or more records in another table.
+3) *many-to-one:* one or more records are are related to one record in another table.
+4) *many-to-many:* one record in a table can be related to one or more records in another table, and vice versa.
+5) *self-referencing:* records in the same table are related between each other.
+
+
+
 ## Different Ways to join tables
 
