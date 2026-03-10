@@ -166,10 +166,51 @@ you can order the rows subject to the entries in `column_name`.
 
 ## Primary and foreign keys
 
+A *primary key* is a column in a table such that the value of the column uniquely identifies each row.
+Therefore values in the primary key column cannot be `NULL`.
+
+You can simply add the `PRIMARY KEY` statement when defining column to make it the primary key, i.e.
+```
+ALTER TABLE table_name ADD COLUMN column_name DATA TYPE PRIMARY KEY
+```
+There is the possibility to have a *composite primary key* consisting of several columns identifying each row uniquely.
+In this case you can modify the table creation as follows:
+```
+CREATE TABLE table_name (
+    column1 DATA TYPE column_constraint,
+    column2 DATA TYPE column_constraint,
+    column3 DATA TYPE column_constraint,
+    ...
+    PRIMARY KEY (column1, column2)
+);
+```
+Primary keys are essential for ensuring
+- data uniqueness,
+- integrity,
+- optimizing data retrieval,
+- establishing relationships with other tables in a relational database.
+
 In order to add a primary key to an existing table, you can use the command:
 ```
 ALTER TABLE characters ADD PRIMARY KEY (column_name);
 ```
+A *foreign key* is a column (or a set of columns) in a table
+that references (usually) the primary key of another table.
+A table can have multiple foreign keys.
+You can add foreign keys as follows
+```
+CREATE TABLE table_name (
+    column1 DATA TYPE column_constraint,
+    column2 DATA TYPE column_constraint,
+    column3 DATA TYPE column_constraint,
+    ...
+    FOREIGN KEY (primary_key) REFERENCES table_name(primary_key)
+)
+```
+The values in a foreign key column must either match the primary key values in the referenced table
+or be `NULL`.
+
+Foreign keys prevent orphaned records, i.e. records referring to a non-existent record in a table.
 
 ## Different types of relationships in a relational database
 
