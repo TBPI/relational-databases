@@ -42,7 +42,7 @@ You can create a database via
 ```
 CREATE DATABASE my_database;
 ```
-You can delete a database using `DROP database_name`.
+You can delete a database using `DROP DATABASE database_name`.
 
 In the command line you can connect to a database via `\c database_name`.
 You see to which database you are connected via
