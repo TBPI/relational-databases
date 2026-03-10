@@ -57,6 +57,8 @@ CREATE TABLE table_name (
 ```
 you specify the number of columns separated with commas and the data type for each column.
 
+In order to delete a table you can use the `DROP TABLE` statement.
+
 It is also possible to create a empty table:
 ```
 CREATE TABLE table_name();
