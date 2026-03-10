@@ -57,9 +57,23 @@ CREATE TABLE table_name (
 ```
 you specify the number of columns separated with commas and the data type for each column.
 
+It is also possible to create a empty table:
+```
+CREATE TABLE table_name();
+```
+Afterwards, it is possible to add columns to the table using `ALTER TABLE`:
+```
+ALTER TABLE table_name ADD COLUMN column1 DATATYPE;
+```
+
 *Goal.* Choose data types as accurately as possible.
 
 The standard naming convention for a table and its columns is *snake case*, i.e. writing words in lowercase and separating them with an underscore.
+
+*Remark.* There are shortcuts in the psql-terminal to view the current status of your work:
+- `\l` = lists all databases.
+- `\d` = lists all tables in the current database.
+- `\d table_name` = lists the contents of the table.
 
 ### Data types in SQL
 
