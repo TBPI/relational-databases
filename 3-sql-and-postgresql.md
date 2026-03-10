@@ -131,6 +131,8 @@ Note that
 - you can leave out the specification `(column1, column2, column3, ...)` of the column names, but it is error-prone.
 - you can add several rows at ones by separating the sets of values with a comma.
 
+*Remark.* It is also possible to remove a row from a table using `DELETE FROM table_name WHERE condition`.
+
 ### Viewing
 
 The `SELECT` statement is used for querying data from one or more table.
