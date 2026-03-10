@@ -159,6 +159,11 @@ Moreover, you can specify constraints using the `WHERE` keyword:
 SELECT column_attribute1, ... FROM table_name WHERE column_attribute3 < 5
 ```
 
+**Additional attributes**
+
+By adding `ORDER BY column_name`,
+you can order the rows subject to the entries in `column_name`. 
+
 ## Primary and foreign keys
 
 ## Different types of relationships in a relational database
