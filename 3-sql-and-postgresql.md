@@ -166,6 +166,11 @@ you can order the rows subject to the entries in `column_name`.
 
 ## Primary and foreign keys
 
+In order to add a primary key to an existing table, you can use the command:
+```
+ALTER TABLE characters ADD PRIMARY KEY (column_name);
+```
+
 ## Different types of relationships in a relational database
 
 ## Different Ways to join tables
