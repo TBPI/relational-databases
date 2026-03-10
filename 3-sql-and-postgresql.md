@@ -131,3 +131,9 @@ Moreover, you can specify constraints using the `WHERE` keyword:
 SELECT column_attribute1, ... FROM table_name WHERE column_attribute3 < 5
 ```
 
+## Primary and foreign keys
+
+## Different types of relationships in a relational database
+
+## Different Ways to join tables
+
