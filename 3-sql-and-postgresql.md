@@ -138,6 +138,11 @@ Note that
 
 *Remark.* It is also possible to remove a row from a table using `DELETE FROM table_name WHERE condition`.
 
+In order to change data in a row, use:
+```
+UPDATE table_name SET column_name = new_value WHERE condition;
+```
+
 ### Viewing
 
 The `SELECT` statement is used for querying data from one or more table.
