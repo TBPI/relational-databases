@@ -101,3 +101,33 @@ For strings of any length use `TEXT`.
 Called with `BOOLEAN` data type which can be set to `TRUE` or `FALSE`.
 
 ## Inserting and viewing data in a table
+
+### Inserting
+
+We know already how to create a table.
+To add a row to a table you call
+```
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value 3, ...);
+```
+Note that
+- you have to leave out the first column if it is the unique identifier of data type `SERIAL` -> PostgreSQL will take care of it.
+- you can leave out the specification `(column1, column2, column3, ...)` of the column names, but it is error-prone.
+- you can add several rows at ones by separating the sets of values with a comma.
+
+### Viewing
+
+The `SELECT` statement is used for querying data from one or more table.
+If you want to select all the information of a table you use an asterisk:
+```
+SELECT * FROM table_name;
+```
+You can also specify attributes to select only specific column
+```
+SELECT column_attribute1, column_attribute2 FROM table_name;
+```
+Moreover, you can specify constraints using the `WHERE` keyword:
+```
+SELECT column_attribute1, ... FROM table_name WHERE column_attribute3 < 5
+```
+
