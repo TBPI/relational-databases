@@ -65,7 +65,8 @@ Afterwards, it is possible to add columns to the table using `ALTER TABLE`:
 ```
 ALTER TABLE table_name ADD COLUMN column1 DATATYPE;
 ```
-In order to remove a column, you use the `DROP COLUMN` statement.
+- In order to remove a column, you use the `DROP COLUMN` statement.
+- In order to rename a column, you use `RENAME COLUMN ... TO ...`.
 
 *Goal.* Choose data types as accurately as possible.
 
