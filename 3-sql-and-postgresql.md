@@ -68,8 +68,9 @@ CREATE TABLE table_name();
 ```
 Afterwards, it is possible to add columns to the table using `ALTER TABLE`:
 ```
-ALTER TABLE table_name ADD COLUMN column1 DATATYPE;
+ALTER TABLE table_name ADD COLUMN column1 DATATYPE CONSTRAINTS;
 ```
+You can add any constraints (such as `NOT NULL`, `UNIQUE`, `PRIMARY KEY`) after fixing the data type.
 - In order to remove a column, you use the `DROP COLUMN` statement.
 - In order to rename a column, you use `RENAME COLUMN ... TO ...`.
 
@@ -120,6 +121,14 @@ For strings of any length use `TEXT`.
 **Boolean**
 
 Called with `BOOLEAN` data type which can be set to `TRUE` or `FALSE`.
+
+### Constraints
+If you need to add a constraint after having defined the table, you can do as follows:
+```
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+ALTER TABLE table_name ADD FOREIGN KEY (column_name) REFERENCES foreign_table(foreign_table_key);
+ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
+```
 
 ## Inserting and viewing data in a table
 
