@@ -110,3 +110,18 @@ do
     $(( i-- ))
 done
 ```
+
+### Creating an array
+
+An array is created as follows:
+```
+ARR=("a" "b" "c")
+```
+An entry is called via `{ARR[0]}` (this calls the first entry), e.g.
+```
+echo ${ARR[0]} # prints a
+echo $ARR[0]   # prints a[0]
+echo ${ARR[*]} # prints a b c
+```
+
+### Regular expressions
