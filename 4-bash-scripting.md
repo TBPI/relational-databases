@@ -125,3 +125,13 @@ echo ${ARR[*]} # prints a b c
 ```
 
 ### Regular expressions
+It is possible to check strings for patterns using the `=~` operator.
+You can check whether some string appears a substring:
+```
+[[ "hello world" =~ "lo wor"]]; echo $?   # returns 0
+```
+You can check whether a string starts with a certain expression
+```
+[[ "hello world" =~ ^he ]]
+```
+
