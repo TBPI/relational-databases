@@ -3,7 +3,7 @@
 You can actually write small files that can perform more complex automated tasks in the terminal.
 This refers to *Bash scripting*.
 
-**Caution!** Windows does not know what a `.sh` script is. Therefore, we need to call them in a virtual machine.
+**Caution!** Windows does not know what a `.sh` script is. Therefore, we need to call them in a virtual machine. <sub>On my computer, I can call `bash` to run Linux in the terminal.</sub>
 
 The first line of a bash script start usually with
 `#!` the *shebang*.
