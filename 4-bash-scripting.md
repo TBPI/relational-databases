@@ -10,6 +10,14 @@ The first line of a bash script start usually with
 It tells the system which interpreter should be used to run the script, e.g.
 `usr/bin/bash`, `bin/bash`, or `bin/sh`.
 
+*Remark.* Once created, a file needs executable permissions.
+This can be done via
+```
+chmod +x filename.sh
+```
+You can see whether you have executable permissions for files in a given folder using `ls -l`.
+You can also remove the execute permission using `chmod -x filename.sh`
+
 We give a list of bash commands and programs in the following.
 
 ## Writing a file
