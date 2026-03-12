@@ -5,6 +5,8 @@ This refers to *Bash scripting*.
 
 **Caution!** Windows does not know what a `.sh` script is. Therefore, we need to call them in a virtual machine. <sub>On my computer, I can call `bash` to run Linux in the terminal.</sub>
 
+**CAUTION!** Bash sees everything by default as a string. Using double parentheses, you can treat variables as if they where mathematical objects.
+
 The first line of a bash script start usually with
 `#!` the *shebang*.
 It tells the system which interpreter should be used to run the script, e.g.
@@ -16,7 +18,7 @@ This can be done via
 chmod +x filename.sh
 ```
 You can see whether you have executable permissions for files in a given folder using `ls -l`.
-You can also remove the execute permission using `chmod -x filename.sh`
+You can also remove the execute permission using `chmod -x filename.sh`.
 
 We give a list of bash commands and programs in the following.
 
