@@ -97,6 +97,6 @@ i = integer
 while (( i >= 0 ))
 do
     do something
-    i=$(( i - 1 ))
+    $(( i-- ))
 done
 ```
