@@ -20,7 +20,10 @@ In order to execute your file, it is good to find out where the `bash` interpret
 
 Then add to your file the *shebang* `#!<path_to_bash_interpreter>`.
 
-Bash has variables. There cannot be spaces between the equal sign when initializing a variable!
+Bash has variables.
+
+**CAUTION!** There cannot be spaces between the equal sign when initializing a variable!
 
 For using a variable you place `$` in front of the variable name.
-Say you have created
+
+Moreover, the user (in the command line) can initialize a variable. To get this input, you need to put `read` in front of the variable.
