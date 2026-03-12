@@ -134,4 +134,15 @@ You can check whether a string starts with a certain expression
 ```
 [[ "hello world" =~ ^he ]]
 ```
-
+You can check whether the string starts with an expression and is followed by a number (e.g.) 3 of characters
+```
+[[ "hello world" =~ ^he...]]
+```
+You can check whether a string ends with a certain expression
+```
+[[ "hello world" =~ ld$ ]]
+```
+You can check whether a string starts with a certain expression, has at least one more character and ends with a certain expression:
+```
+[[ "hello world" =~ ^he...+.rld$ ]]; echo $?    # prints 0
+```
