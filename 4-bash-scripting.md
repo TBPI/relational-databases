@@ -9,3 +9,11 @@ It tells the system which interpreter should be used to run the script, e.g.
 `usr/bin/bash`, `bin/bash`, or `bin/sh`.
 
 We give a list of bash commands and programs in the following.
+
+## Writing a file
+A file that is executed by the `sh`- or `bash`-interpreter is has usually the ending `.sh`.
+Here `sh` stands for *shell* and `bash` for *bourne-again shell*.
+
+In order to execute your file, it is good to find out where the `bash` interpreter is located. This can be done by `which bash` in the command line.
+
+Then add to your file the *shebang* `#!<path_to_bash_interpreter>`.
