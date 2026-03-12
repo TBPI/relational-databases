@@ -85,6 +85,18 @@ To test several expressions, you can use:
 
 Here is how a `for` loop works in bash
 ```
-for (( i = ))
+for (( i = integer; i >= 0; i-- ))
+do
+    do something
+done
+```
 
+If you want to implement the same using a `while` loop, do
+```
+i = integer
+while (( i >= 0 ))
+do
+    do something
+    i=$(( i - 1 ))
+done
 ```
