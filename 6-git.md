@@ -14,3 +14,12 @@ To edit a file, you press `^O` = `Strg + O` in order for the changes being added
 `^C` = `Strg + C` allows you to cancel and go back to editing the file.
 
 `^X = Strg + X` allows you to exit Nano.
+
+## Version control
+
+Version control system: Git, SVN, Mercurial
+
+These tools allow you to track and manage changes in your project.
+
+Usually, a version control system is merged with a **Version control provider**, e.g. GitHub or Gitlab.
+
