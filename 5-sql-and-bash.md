@@ -7,3 +7,5 @@ In a relational database, you want to
 - *improve data integrity*.
 
 This is done via established **normal forms**. The process is called **normalization**.
+
+There three increasingly stricter steps of normalization.
