@@ -8,4 +8,8 @@ In a relational database, you want to
 
 This is done via established **normal forms**. The process is called **normalization**.
 
-There three increasingly stricter steps of normalization.
+There three increasingly stricter steps of normalization and, in addition, the Normal Form 3.5.
+
+**Goal.** Reach the third normal form.
+
+## SQL Injection
