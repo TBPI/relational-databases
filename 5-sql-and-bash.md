@@ -13,3 +13,6 @@ There three increasingly stricter steps of normalization and, in addition, the N
 **Goal.** Reach the third normal form.
 
 ## SQL Injection
+
+
+## The $N+1$ Problem
