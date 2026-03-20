@@ -145,8 +145,6 @@ Note that
 - you can leave out the specification `(column1, column2, column3, ...)` of the column names, but it is error-prone.
 - you can add several rows at ones by separating the sets of values with a comma.
 
-*Remark.* It is also possible to remove a row from a table using `DELETE FROM table_name WHERE condition`.
-
 In order to change data in a row, use:
 ```
 UPDATE table_name SET column_name = new_value WHERE condition;
@@ -171,7 +169,17 @@ SELECT column_attribute1, ... FROM table_name WHERE column_attribute3 < 5
 **Additional attributes**
 
 By adding `ORDER BY column_name`,
-you can order the rows subject to the entries in `column_name`. 
+you can order the rows subject to the entries in `column_name`.
+
+### Deleting entries
+
+It is also possible to remove a row from a table using `DELETE FROM table_name WHERE condition`.
+
+When testing scripts, it might be useful to delete all entries from a table.
+This can be done with the `TRUNCATE` keyword.
+```
+TRUNCATE table_name;
+```
 
 ## Primary and foreign keys
 
