@@ -23,3 +23,12 @@ These tools allow you to track and manage changes in your project.
 
 Usually, a version control system is merged with a **Version control provider**, e.g. GitHub or Gitlab.
 
+## Purpose of sites like GitHub / GitLab
+
+A version control provider offers cloud storage for version-controlled projects.
+
+Features of  version control
+- boosts collaboration
+- open source or private
+- branching
+- issue tracker (assign, claim, etc.)
