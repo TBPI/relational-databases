@@ -42,3 +42,6 @@ This can conveniently be done by creating a `PSQL` variable, e.g.
 ```
     PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
 ``` 
+
+# Workshop : Building a Student Database: Part 2
+
