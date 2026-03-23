@@ -49,6 +49,7 @@ In order to use the database, we need to rebuild the database, this is done with
 ```
 psql -U postgres < students.sql
 ```
+## Pattern matching
 We can use
 ```
 SELECT * FROM table_name WHERE CONDITIONS
@@ -74,3 +75,5 @@ There are also different keywords for the pattern check:
 - `NOT LIKE` = opposite of `LIKE`,
 - `ILIKE` = as `LIKE` but without case matching,
 - `NOT ILIKE` = opposite of `ILIKE`.
+
+## Ordering results
