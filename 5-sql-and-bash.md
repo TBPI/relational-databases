@@ -68,3 +68,9 @@ you can run the SQL-command:
 ```
 SELECT * FROM courses WHERE course = '% %';
 ```
+
+There are also different keywords for the pattern check:
+- `LIKE`,
+- `NOT LIKE` = opposite of `LIKE`,
+- `ILIKE` = as `LIKE` but without case matching,
+- `NOT ILIKE` = opposite of `ILIKE`.
