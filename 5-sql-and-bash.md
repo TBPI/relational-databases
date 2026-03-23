@@ -135,3 +135,6 @@ Recall that we have 4 keywords:
 - `INNER JOIN` takes the *intersection* of the two tables.
 
 They become more effective when combining them with the numeric keys.
+
+If the keys for the join condition have the same name, you can use the keyword `USING (key_name)` instead of `... ON table_1.key_name = table_2.key_name`.
+In addition, this method joins the two columns with the key_name to one column.
