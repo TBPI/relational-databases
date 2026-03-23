@@ -44,4 +44,8 @@ This can conveniently be done by creating a `PSQL` variable, e.g.
 ``` 
 
 # Workshop : Building a Student Database: Part 2
-
+In the first workshop we saved our progress in an `sql`-file.
+In order to use the database, we need to rebuild the database, this is done with
+```
+psql -U postgres < students.sql
+```
