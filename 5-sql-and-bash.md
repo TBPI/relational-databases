@@ -105,3 +105,26 @@ SELECT SUM(column_name) FROM table_name;
 SELECT AVG(column_name) FROM table_name;
 ```
 In order to round decimals, you can use `CEIL`, `FLOOR` or `ROUND(number_to_round, number_of_decimals)`.
+- `COUNT`: Counts the number of entries in a column.
+- `DISTINCT`: Shows only unique values.
+The same can be done by `GROUP BY` as follows
+```
+SELECT column_name FROM table_name GROUP BY column_name
+```
+The advantage of `GROUP BY` is that other aggregate functions can be added. For example, in the [workshop](sql_and_bash/workshop1), we can select all major_id and count how often they appear in the students table as follows:
+```
+SELECT major_id, COUNT(*) FROM students GROUP BY major_id;
+```
+If you want the unique major ids with minimal and maximal gpas, the command is
+```
+SELECT major_id, MIN(gpa), MAX(gpa) FROM students GROUP BY major_id;
+```
+This leads to three columns of all unique `major_id`s together with the minimal and the maximal gpa.
+
+In addition, you can add `HAVING condition` after the `GROUP BY` keyword, e.g.
+```
+SELECT major_id, MIN(gpa), MAX(gpa) FROM students GROUP BY major_id HAVING MAX(gpa) = 4.0;
+```
+- Using `SELECT column_name AS new_column_name...` returns the column with a newly selected column name.
+
+In order ot avoid showing numeric keys, you need to use the `JOIN` keyword.
