@@ -77,3 +77,12 @@ There are also different keywords for the pattern check:
 - `NOT ILIKE` = opposite of `ILIKE`.
 
 ## Ordering results
+You can specify the order of the results by adding `ORDER BY column_name`.
+By default it will be ordered in ascending order (`ORDER BY column_name ASC`).
+If you want to order in descending order,
+you need to add the keyword `DESC`. 
+
+In order to limit the number of results returned, you can use the keyword `LIMIT number`.
+
+*Caution.* You cannot put `LIMIT` before `ORDER BY`.
+The order is `WHERE` -> `ORDER BY` -> `LIMIT`.
