@@ -49,3 +49,11 @@ In order to use the database, we need to rebuild the database, this is done with
 ```
 psql -U postgres < students.sql
 ```
+We can use
+```
+SELECT * FROM table_name WHERE CONDITIONS
+```
+with `CONDITIONS` being for example arithmetic conditions.
+The column `gpa` in the `students` table takes `NUMERIC` values.
+We can use the operators `=`, `!=`, `<`, `<=`, `>`, `>=` for the conditions.
+They work also with `VARCHAR` columns with the *alphabetic order*. 
