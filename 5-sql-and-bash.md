@@ -86,3 +86,22 @@ In order to limit the number of results returned, you can use the keyword `LIMIT
 
 *Caution.* You cannot put `LIMIT` before `ORDER BY`.
 The order is `WHERE` -> `ORDER BY` -> `LIMIT`.
+
+## Mathematical operations with numerical columns
+- `MIN`: Selects the minimum from a given column
+```
+SELECT MIN(column_name) FROM table_name;
+```
+- `MAX`: Selects the maximum from a given column
+```
+SELECT MAX(column_name) FROM table_name;
+```
+- `SUM`: Returns sum of all entries in a column
+```
+SELECT SUM(column_name) FROM table_name;
+```
+- `AVG`: Returns the average of all entries from a column
+```
+SELECT AVG(column_name) FROM table_name;
+```
+In order to round decimals, you can use `CEIL`, `FLOOR` or `ROUND(number_to_round, number_of_decimals)`.
