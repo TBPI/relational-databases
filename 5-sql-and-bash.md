@@ -43,6 +43,12 @@ This can conveniently be done by creating a `PSQL` variable, e.g.
     PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
 ``` 
 
+## Saving your progress
+In order to save the progress made in a database (i.e. all the tables), you can use the command 
+```
+pg_dump --clean --create --inserts --username=freecodecamp database_name > database_name.sql
+```
+
 # Workshop : Building a Student Database: Part 2
 In the first workshop we saved our progress in an `sql`-file.
 In order to use the database, we need to rebuild the database, this is done with
