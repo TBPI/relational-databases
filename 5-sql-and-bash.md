@@ -128,3 +128,10 @@ SELECT major_id, MIN(gpa), MAX(gpa) FROM students GROUP BY major_id HAVING MAX(g
 - Using `SELECT column_name AS new_column_name...` returns the column with a newly selected column name.
 
 In order ot avoid showing numeric keys, you need to use the `JOIN` keyword.
+Recall that we have 4 keywords:
+- `table_1 FULL JOIN table_2 ON ...` joins all rows of the two tables with on the columns specified after the keyword `ON`,
+- `table_1 LEFT JOIN table_2 ON ...` joins all the rows from `table_1` with the rows from `table_2`, but leaves out every row in `table_2` whose entry after the `ON` keyword does not appear in `table_1`.
+`table_1 RIGHT JOIN table_2 ON ...` joins all the rows from `table_2` with the rows from `table_1`, but leaves out every row in `table_1` whose entry after the `ON` keyword does not appear in `table_2`.
+- `INNER JOIN` takes the *intersection* of the two tables.
+
+They become more effective when combining them with the numeric keys.
