@@ -57,3 +57,14 @@ with `CONDITIONS` being for example arithmetic conditions.
 The column `gpa` in the `students` table takes `NUMERIC` values.
 We can use the operators `=`, `!=`, `<`, `<=`, `>`, `>=` for the conditions.
 They work also with `VARCHAR` columns with the *alphabetic order*. 
+
+Another useful condition is `LIKE` for patterns.
+For example the condition `WHERE course LIKE '_lgortihm'` returns everything where `course` contains the pattern `lgorithm` and an arbitrary character before it. 
+Here are some useful commands with to find patterns:
+- `_` placeholder for a pattern that can have any character at this place, but must match everything else.
+- `%` returns everything that matches the pattern after or before the `%`.
+For example in the courses, table of the first [workshop](sql_and_bash/workshop1/), in order to view all courses which have an empty space,
+you can run the SQL-command:
+```
+SELECT * FROM courses WHERE course = '% %';
+```
