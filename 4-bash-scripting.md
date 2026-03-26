@@ -44,7 +44,11 @@ echo "hello world" > filename.txt
 writes `hello world` into the file called filename.txt.
 If this file does not exist,
 it will be created automatically.
-Note that `>` overwrites the file, but `>>` adds a line to the file. 
+Note that `>` overwrites the file, but `>>` adds a line to the file.
+
+#### Standard output and standard error
+You can print the standard output and standard error to the files you create using `1>` for stdout (= standard output)
+and `2>` for stderr (= standard error).
 
 ## Variables
 Bash has variables.
