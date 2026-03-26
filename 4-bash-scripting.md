@@ -60,6 +60,41 @@ read VARIABLE < filename.txt
 ```
 sets the variable `VARIABLE` to be the content of `filename.txt`.
 
+Another way to set the standard input is the pipe
+```
+<command1> | <command2>
+```
+It takes the standard output from `command1` and uses it as the standard input for `command2`.
+But with `read VARIABLE` as `command2` this is run in a subshell and does not affect the value of `VARIABLE` for further calls in the command line.
+
+Giving input via the pipe might have advantages.
+For example, consider the following file
+```
+#!/bin/bash
+read NAME
+echo Hello $NAME
+```
+When running this file, the terminal waits for a value for the variable `NAME` before printing `Hello $NAME` to the terminal.
+
+Instead we could have run
+`echo name | ./filename.sh`,
+in order to give directly the standard input `name` to the file and run the file with the given input.
+
+
+#### cat
+
+`cat` combines `read` and `echo`.
+It can print the whole content of a file via `cat name.txt`
+or `cat < name.txt`.
+It takes the standard output as an input in the pipe command
+```
+echo Hallo | cat
+```
+This command will print `Hallo` to the terminal.
+
+### Possibilities to run a file which takes an input
+ 
+
 ## Variables
 Bash has variables.
 
