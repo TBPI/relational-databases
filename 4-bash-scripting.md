@@ -34,6 +34,19 @@ Note that you can also put arguments after this command which can be passed into
 
 You can see bash and other built-in commands using `ls /`.
 
+### Writing into files.
+Recall that `echo hello world`
+prints `hello world` to the terminal.
+Instead
+```
+echo "hello world" > filename.txt 
+```
+writes `hello world` into the file called filename.txt.
+If this file does not exist,
+it will be created automatically.
+Note that `>` overwrites the file, but `>>` adds a line to the file. 
+
+## Variables
 Bash has variables.
 
 **CAUTION!** There cannot be spaces between the equal sign when initializing a variable!
