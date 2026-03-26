@@ -46,9 +46,19 @@ If this file does not exist,
 it will be created automatically.
 Note that `>` overwrites the file, but `>>` adds a line to the file.
 
-#### Standard output and standard error
-You can print the standard output and standard error to the files you create using `1>` for stdout (= standard output)
-and `2>` for stderr (= standard error).
+#### Standard output, standard error and standard in
+You can print the standard output and standard error to the files you create using `1>` for *stdout* (= standard output)
+and `2>` for *stderr* (= standard error).
+
+Moreover there is *standard in* (= stdin).
+For example, `read` looks for `stdin` a standard input into the terminal.
+
+You can also use `stdin` to have a file as an input.
+For example,
+```
+read VARIABLE < filename.txt
+```
+sets the variable `VARIABLE` to be the content of `filename.txt`.
 
 ## Variables
 Bash has variables.
