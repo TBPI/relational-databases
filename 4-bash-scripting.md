@@ -109,6 +109,13 @@ Another possiblity to achieve the same via *redirection* is
 ./filename.sh < my_value 2> stderr.txt > stdout.txt 
 ```
 
+## Getting information about a file
+This is done using the `wc` command (wc = word count).
+It shows by default the number of lines, the number of words, and how many bytes are in the file.
+
+Using the flag `-l` shows only the number of lines,
+`-w` the number of words, and `-m` the number of characters.
+
 ## Variables
 Bash has variables.
 
