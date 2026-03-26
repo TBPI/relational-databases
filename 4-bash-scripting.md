@@ -116,6 +116,15 @@ It shows by default the number of lines, the number of words, and how many bytes
 Using the flag `-l` shows only the number of lines,
 `-w` the number of words, and `-m` the number of characters.
 
+## Getting patterns from a file
+The `grep` command find the lines in the filename which contain a certain pattern.
+It is called in general as follows
+```
+grep 'pattern' filename.txt
+```
+The additional flag `--color` colors the respective pattern (in red).
+The additional flag `-n` adds the line number to every line.
+
 ## Variables
 Bash has variables.
 
