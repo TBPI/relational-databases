@@ -122,8 +122,17 @@ It is called in general as follows
 ```
 grep 'pattern' filename.txt
 ```
-The additional flag `--color` colors the respective pattern (in red).
-The additional flag `-n` adds the line number to every line.
+The additional flag `--color` colors the respective pattern (in red).\
+The additional flag `-n` adds the line number to every line.\
+The additional flag `-c` counts the number of lines in which the pattern occurs.\
+The additional flag `-o` returns all matches with the pattern.
+
+It follows that the combination of `wc` with `grep` yields the count of all matches as follows:
+```
+grep -o 'pattern' file_to_count.txt | wc -l
+```
+
+### sed
 
 ## Variables
 Bash has variables.
