@@ -93,7 +93,21 @@ echo Hallo | cat
 This command will print `Hallo` to the terminal.
 
 ### Possibilities to run a file which takes an input
- 
+
+We can run files using the pipe method
+
+```
+echo my_value | ./filename.sh 2> stderr.txt > stdout.txt
+```
+This
+- fixes the variable which needs an input to `my_value`,
+- prints standard errors to `stderr.txt`, and
+- prints the output to `stdout.txt`.
+
+Another possiblity to achieve the same via *redirection* is
+```
+./filename.sh < my_value 2> stderr.txt > stdout.txt 
+```
 
 ## Variables
 Bash has variables.
