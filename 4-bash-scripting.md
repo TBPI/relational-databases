@@ -133,6 +133,27 @@ grep -o 'pattern' file_to_count.txt | wc -l
 ```
 
 ### sed
+The `sed` command allows to replace text in a file.
+The basic command goes as follows
+```
+sed 's/original_text/new_text/' filename.txt
+```
+By default, it writes the replaced text into the stdout (not into the file).
+
+You can add *regex flags* after the last `/` such as:
+- `g` for global: replaces all instances of a matched pattern,
+- `i` for ignore cases: ignores upper and lower case.
+
+**Use in combination with grep**
+
+If we want to get the row number where a certain pattern appears, we can use the combination
+```
+grep -n 'pattern' filename.txt | sed -E 's/([0-9]+).*/\1/'
+```
+The first part has the lines together with the line numbers as stdout and pipes it into the sed command.
+The flag `-E` looks for the first regular expressions containing the characters [0-9] in each row.
+This will be the row number.
+Together with `.*` we replace everything in a line by `\1`, i.e. with itself.
 
 ## Variables
 Bash has variables.
