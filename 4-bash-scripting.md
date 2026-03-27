@@ -155,6 +155,13 @@ The flag `-E` looks for the first regular expressions containing the characters 
 This will be the row number.
 Together with `.*` we replace everything in a line by `\1`, i.e. with itself.
 
+### diff
+This is a command to view differences between two files.
+```
+diff file1 file2
+```
+It will show the lines where the two documents differ.
+
 ## Variables
 Bash has variables.
 
