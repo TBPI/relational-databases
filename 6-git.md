@@ -34,3 +34,19 @@ Features of  version control
 - issue tracker (assign, claim, etc.)
 
 ## Repositories
+
+When creating a new repository on GitHub, you typically have the following options:
+- *choose a template:* special kind of repository that you can use as a springboard for new repositories (usually not yet set up);
+later on useful, e.g. for issue templates or documentation;
+- *select an owner:* you or an organization;
+- *choose a name of the repository:* do not use spaces;
+- *choose whether repository is public or private;*
+
+A README file will appear on the repositories homepage: good for documentation.
+
+A `.gitignore` file allows to specify files which should be ignored by Git.
+
+To clone the repository, you can run in the terminal:
+```
+    git clone git@github.com:username/repository-name
+```
