@@ -151,3 +151,7 @@ git commit -m "short message"
 
 You can call `git log` to view the history of commits.
 To add your work to the remote repository on GitHub, you need to write `git push`.
+
+## Contributing to other people's repository
+
+
