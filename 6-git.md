@@ -50,3 +50,9 @@ To clone the repository, you can run in the terminal:
 ```
     git clone git@github.com:username/repository-name
 ```
+
+## Security Requirements
+
+This chapter deals with handling security requirements such as SSH and GPG keys in the context of GitHub.
+
+
