@@ -81,9 +81,20 @@ To get the public key, you use
 gpg --armor --export "<key id>"
 ```
 
-As `key id` you can use your e-mail address that you provided when creating the key.
+As `key id` you can use your e-mail address that you provided when creating the key or the short key id provided after
+```
+sec   rsa3072/KEY_ID
+```
 
 Then you can save the gpg key on GitHub.
+
+In order to set the key as signing key, you run
+```
+git config --global user.signingkey KEY_ID
+```
+The flag `git -S -m "add: my signed commit"` lets you sign a key.
+
+**Caution:** The setup seems to work properply only with a Linux system.
 
 
 ### SSH
