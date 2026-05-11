@@ -59,4 +59,44 @@ Both use public-private pair.
 You keep a private key on your laptop and share a public key with people who need to verify your authenticity.
 
 ### GPG
-GPG means Gnu Privacy Guard.
+GPG means Gnu Privacy Guard. GPG keys are used to sign files or commits.
+
+To generate a GPG key, need to run (in Bash)
+
+```
+gpg --full-generate-key
+```
+You will be asked to provide a passphrase.
+
+The gpg key will be stored in a hidden and encrypted directory.
+
+To see the list of your public gpg keys, you run
+```
+gpg --list-secret-keys --keyid-format=long
+```
+
+To get the public key, you use
+
+```
+gpg --armor --export "<key id>"
+```
+
+As `key id` you can use your e-mail address that you provided when creating the key.
+
+Then you can save the gpg key on GitHub.
+
+
+
+
+### SSH
+
+SSH stands for Secure SHell.
+They are used to authenticate a remote connection to a server.
+
+To generate an SSH key, run
+
+```
+ssh-keygen -t ed25519 -C "mail-address"
+```
+
+As for the gpg-key, you will be asked to provide a passphrase.
