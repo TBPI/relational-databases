@@ -113,3 +113,41 @@ As for the gpg-key, you will be asked to provide a passphrase.
 You can add ssh keys to Github as well and use them to sign commits. Both seem to be more suitable in a Linux system.
 
 ## Push
+
+To setup version control on a project using Git, one needs to 
+call `git init` after having set up a new repository on GitHub.
+
+A hidden `.git` file will be added to the repository,
+which will track the Git history.
+
+With `git status` you can ask for the current status on the branch your in.
+
+By default you will be on the main branch (but it is possible to branch out features and issues to multiple workspaces and merge them later).
+
+The status will provide you with the following states for files:
+
+- 'Untracked': This file is new to the repository.
+- 'Modified': This file existed and has been changed.
+- 'Deleted': This file has existed and is now deleted.
+- 'Renamed': This file has the same content, but the name changed.
+
+If you want to stage a file, you call
+```
+git add name-of-file
+```
+If you want to stage all unstaged files, you can simply call
+```
+git add .
+```
+If you want to unstage a staged file, you write the following command
+```
+git reset name-of-file
+```
+
+Afterwards you commit the file by writing
+```
+git commit -m "short message"
+```
+
+You can call `git log` to view the history of commits.
+To add your work to the remote repository on GitHub, you need to write `git push`.
