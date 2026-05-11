@@ -111,3 +111,5 @@ ssh-keygen -t ed25519 -C "mail-address"
 As for the gpg-key, you will be asked to provide a passphrase.
 
 You can add ssh keys to Github as well and use them to sign commits. Both seem to be more suitable in a Linux system.
+
+## Push
