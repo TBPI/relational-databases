@@ -55,4 +55,8 @@ To clone the repository, you can run in the terminal:
 
 This chapter deals with handling security requirements such as SSH and GPG keys in the context of GitHub.
 
+Both use public-private pair.
+You keep a private key on your laptop and share a public key with people who need to verify your authenticity.
 
+### GPG
+GPG means Gnu Privacy Guard.
