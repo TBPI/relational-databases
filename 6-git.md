@@ -86,8 +86,6 @@ As `key id` you can use your e-mail address that you provided when creating the 
 Then you can save the gpg key on GitHub.
 
 
-
-
 ### SSH
 
 SSH stands for Secure SHell.
