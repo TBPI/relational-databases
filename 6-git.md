@@ -154,6 +154,24 @@ To add your work to the remote repository on GitHub, you need to write `git push
 
 ## Contributing to other people's repository
 
+In general you do not have "write access" to others' repositories.
+
+In order, to push commits you need therefore *fork* the repository before.
+After forking a (public) repository, you can be the owner of the copy of the repository.
+
+Then, to work remotely on it, clone it (e.g. using SSH).
+
+Looking at the remote your local clone configures works with `git remote -v`
+Note that this will set your fork as the origin and changes in the original repository will not be updated automatically.
+
+To update your fork, you need to grab the SSH URL, then run
+```
+git remote add upstream git@github.com:original-repo-username/repo-name.git
+```
+You can use anything else but `upstream` in the command, but this seems to the standard convention.
+
+Now you can do `git fetch upstream` and `git merge upstream/main` in order to get the last changes from the original project.
+
 ## Creating new branches
 
 ## Pull Requests
