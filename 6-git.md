@@ -174,4 +174,40 @@ Now you can do `git fetch upstream` and `git merge upstream/main` in order to ge
 
 ## Creating new branches
 
+*Branch* = deviation from the main history
+
+`git branch` allows you to view the existing branches.
+The asterisk means that you are currently in this branch.
+
+Creating a new branch works with
+`git branch branch_name`.
+
+To change to the new branch `branch_name` one calls
+```
+git checkout branch_name
+```
+or
+```
+git switch branch_name
+```
+
+Creating and switching to the new branch works in one go using
+```
+git checkout -b new_branch
+```
+or
+```
+git switch -c feature
+```
+
+To push the new branch to the origin, you write in the command line 
+```
+git push -u origin branch_name
+```
+
+*Remark.* There is a `test` branch which contains a file called `test.md`
+that will never be seen on the `main` branch.
+On the other hand everything that happens after this remark
+is not seen on the test branch.
+
 ## Pull Requests
