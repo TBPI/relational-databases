@@ -211,3 +211,19 @@ On the other hand everything that happens after this remark
 is not seen on the test branch.
 
 ## Pull Requests
+
+To finally merge changes, you need to call a *pull request*.
+
+When creating a pull request on GitHub
+- `base` is the target for the merge,
+- `compare` is what you want to merge.
+
+GitHub will show you a diff that highlights the differences between the branches.
+
+After the pull request, the changes usually go through a `code review`.
+
+If you receive a pull request, you will see a message `Merge pull request #1`.
+There are three strategies to this:
+1) `Merge`: Brings all of the commits from the head branch, then creates another commit to process and log the merge.
+2) `Squash and Merge`: ALL of the commits from the heads branch will be smashed into a single commit. The new commit will be merged into the base branch without creating a merge commit.
+3) `Rebase and Merge`: All commits will be reset to come after the latest commit on the base branch. Then one merges the head without a merge commit.
