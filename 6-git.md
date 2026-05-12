@@ -227,3 +227,5 @@ There are three strategies to this:
 1) `Merge`: Brings all of the commits from the head branch, then creates another commit to process and log the merge.
 2) `Squash and Merge`: ALL of the commits from the heads branch will be smashed into a single commit. The new commit will be merged into the base branch without creating a merge commit.
 3) `Rebase and Merge`: All commits will be reset to come after the latest commit on the base branch. Then one merges the head without a merge commit.
+
+## Code Review Processes
