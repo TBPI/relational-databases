@@ -237,3 +237,5 @@ There are three strategies to this:
 What maintainers might give as a feedback:
 - comment with their request
 - official 'request changes' comment -> this blocks the pull request from being merged.
+
+## GitHub Pages
