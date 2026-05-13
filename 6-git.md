@@ -229,3 +229,11 @@ There are three strategies to this:
 3) `Rebase and Merge`: All commits will be reset to come after the latest commit on the base branch. Then one merges the head without a merge commit.
 
 ## Code Review Processes
+
+1) Confirm that **CI** (= **C**ontinuous **I**ntegration) passes (roughly code must meet style guidelines and passes tests).
+2) If that passes, they will look at the actual code.
+3) Pull down the changes locally.
+
+What maintainers might give as a feedback:
+- comment with their request
+- official 'request changes' comment -> this blocks the pull request from being merged.
