@@ -239,3 +239,10 @@ What maintainers might give as a feedback:
 - official 'request changes' comment -> this blocks the pull request from being merged.
 
 ## GitHub Pages
+Solid option for deploying
+- static websites,
+- applications that do not require a back-end server to handle logic (i.e. run entirely client-side).
+
+The webpage will by default be available on `user_name.github.io`
+and a repository on `user_name.github.io/repo_name`.
+
