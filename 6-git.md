@@ -246,3 +246,5 @@ Solid option for deploying
 The webpage will by default be available on `user_name.github.io`
 and a repository on `user_name.github.io/repo_name`.
 
+## Remaining in Sync with Your Remote Counterparts
+
