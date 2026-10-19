@@ -12,3 +12,11 @@ We follow their structure:
 6) [Git](git.md)
 
 There is as well a [document](older-work.md) containing basic SQL commands from a course of [W3](https://www.w3schools.com/sql/).
+
+*Remark.*
+We add the package `jupysql` (which is the successor of `ipython-sql`) so that `%sql` and `%%sql` works.
+In order to work with PostgreSQL we use the flag `psycopg`.
+The full command is
+```
+uv add jupysql "psycopg[binary]"
+```
