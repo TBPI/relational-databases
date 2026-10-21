@@ -1,4 +1,4 @@
-~~ kitty_ipsum_1.txt info ~~
+~~ kitty-ipsum-1.txt info ~~
 
 Number of lines:
 27
@@ -32,7 +32,7 @@ Lines that they appear on:
 26
 
 
-~~ kitty_ipsum_2.txt info ~~
+~~ kitty-ipsum-2.txt info ~~
 
 Number of lines:
 28

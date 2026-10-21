@@ -22,7 +22,7 @@ As already observed, it is cumbersome to insert every row separately into the ta
 
 Given the 'rough data', you can write a script which automates this process for you.
 
-In the [workshop](sql_and_bash/workshop1), we are given `csv`-files
+In the [workshop](sql-and-bash/workshop1), we are given `csv`-files
 with rough data on students and their majors.
 The `cat <filename>` command in bash prints the whole file
 into the terminal.
@@ -70,7 +70,7 @@ For example the condition `WHERE course LIKE '_lgortihm'` returns everything whe
 Here are some useful commands with to find patterns:
 - `_` placeholder for a pattern that can have any character at this place, but must match everything else.
 - `%` returns everything that matches the pattern after or before the `%`.
-For example in the courses, table of the first [workshop](sql_and_bash/workshop1/), in order to view all courses which have an empty space,
+For example in the courses, table of the first [workshop](sql-and-bash/workshop1/), in order to view all courses which have an empty space,
 you can run the SQL-command:
 ```
 SELECT * FROM courses WHERE course = '% %';
@@ -117,7 +117,7 @@ The same can be done by `GROUP BY` as follows
 ```
 SELECT column_name FROM table_name GROUP BY column_name
 ```
-The advantage of `GROUP BY` is that other aggregate functions can be added. For example, in the [workshop](sql_and_bash/workshop1), we can select all major_id and count how often they appear in the students table as follows:
+The advantage of `GROUP BY` is that other aggregate functions can be added. For example, in the [workshop](sql-and-bash/workshop1), we can select all major_id and count how often they appear in the students table as follows:
 ```
 SELECT major_id, COUNT(*) FROM students GROUP BY major_id;
 ```
