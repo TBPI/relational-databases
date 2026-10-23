@@ -41,7 +41,7 @@ For Microsoft they are different.
 `pwd` = prints current working directory to shell.
 
 `cd` = change directories.
-You can move to a certain directory by giving the full path starti with `/` or move relatively. `..` allows you to move upwards.
+You can move to a certain directory by giving the full path starting with `/` or move relatively. `..` allows you to move upwards.
 
 `ls` = lists contents of the directory. `-a` flag shows hidden files, `-l` flag shows file permissions. You can use `less` or `cat` to view contents of a file
 
@@ -76,5 +76,5 @@ In the powershell the creation of a new file is relatively complicated, you need
 `--version` flag = prints current version
 `--help` flag = prints instructions
 
-There are long (usually two hypens) and short forms (one hyphen).
+There are long (usually two hyphens) and short forms (one hyphen).
 Short forms allow you to easily chain different flags together. 
