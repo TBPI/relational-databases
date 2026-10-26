@@ -1,7 +1,15 @@
 # SQL for Data Science with Python (IBM)
 
-*Remark.* The course uses MySQL.
-Commands which are different in PostgreSQL are collected in [MySQL vs. PostgreSQL](#mysql-vs-postgresql).
+*Remark.* The snippets in these notes come from several SQL dialects:
+- **MySQL:** the course uses MySQL, so most snippets are written in MySQL.
+- **IBM Db2:** some course material uses Db2 syntax, e.g. `TRUNCATE TABLE ... IMMEDIATE`.
+- **SQLite:** used in the Python part via the module `sqlite3`, e.g. the table `sqlite_master`.
+- **PostgreSQL:** the database system used in the rest of this repository.
+
+If a snippet does not work in PostgreSQL,
+this is said before the snippet together with the dialect in which it works,
+and the PostgreSQL version is shown right after it.
+All differences are summarized in [Differences to PostgreSQL](#differences-to-postgresql).
 
 ## Basics
 
@@ -79,28 +87,50 @@ ALTER TABLE table_name ADD COLUMN column_name datatype;
 -- or shorter
 ALTER TABLE table_name ADD column_name datatype;
 
--- modify a column (e.g. change its data type)
-ALTER TABLE table_name MODIFY column_name datatype;
-
 -- remove a column
 ALTER TABLE table_name DROP COLUMN column_name;
+```
+
+Modify a column (e.g. change its data type).
+*Works only in MySQL, not in PostgreSQL:*
+```sql
+ALTER TABLE table_name MODIFY column_name datatype;
+```
+In PostgreSQL:
+```sql
+ALTER TABLE table_name ALTER COLUMN column_name TYPE datatype;
 ```
 
 Delete a table from the database:
 ```sql
 DROP TABLE table_name;
+-- or
+DROP TABLE IF EXISTS table_name;
 ```
+If the table does not exist, `DROP TABLE table_name;` raises an *error*
+(PostgreSQL: `ERROR: table "table_name" does not exist`).
+In many tools an error stops the whole script
+(e.g. a `%%sql` cell in Jupyter or `psql -v ON_ERROR_STOP=1 -f script.sql`),
+and inside a transaction it aborts the transaction: all following statements are ignored until `ROLLBACK`.
+With `IF EXISTS` the database only gives a *notice* (`table "table_name" does not exist, skipping`)
+and continues with the next statement.
+
+*Advantage.* Scripts which start with `DROP TABLE IF EXISTS ...; CREATE TABLE ...;` can be run again and again,
+no matter whether the table already exists or not.
+This is what we do in the notebooks of [leet-challenges](leet-challenges/).
+`IF EXISTS` works in PostgreSQL and MySQL.
 
 Delete all rows of a table (the table itself remains):
 ```sql
+TRUNCATE TABLE table_name;
+```
+*The course uses IBM Db2 syntax here, which does not work in PostgreSQL (nor in MySQL):*
+```sql
 TRUNCATE TABLE table_name IMMEDIATE;
 ```
-`IMMEDIATE` means that this cannot be undone.
-
-*Remark.* The exact syntax depends on the database system:
-`MODIFY` is MySQL syntax and `IMMEDIATE` is required in IBM Db2.
-In other systems `TRUNCATE TABLE table_name;` is enough.
-For PostgreSQL see [MySQL vs. PostgreSQL](#mysql-vs-postgresql).
+In Db2, `IMMEDIATE` means that this cannot be undone.
+In PostgreSQL `TRUNCATE TABLE table_name;` (as above) is enough.
+It can even be undone with `ROLLBACK` if it is run inside a transaction (see [ACID transactions](#acid-transactions)).
 
 ### Data integrity
 
@@ -109,7 +139,72 @@ For PostgreSQL see [MySQL vs. PostgreSQL](#mysql-vs-postgresql).
 - *Domain integrity:* well-defined data type, format, value and nullability,
   ensured e.g. by the constraints `CHECK` and `NOT NULL`.
 
+**Example.** (similar to [SQL and Bash](5-sql-and-bash.md), see also [Primary and foreign keys](3-sql-and-postgresql.md#primary-and-foreign-keys))
+```sql
+CREATE TABLE majors (
+    major_id SERIAL PRIMARY KEY,
+    major VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE students (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    major_id INTEGER REFERENCES majors(major_id),
+    gpa NUMERIC(2,1) CHECK (gpa BETWEEN 0 AND 4)
+);
+```
+- *Primary key:* `PRIMARY KEY` after a column makes it the primary key.
+  The values must be unique and cannot be `NULL`.
+  `SERIAL` lets PostgreSQL number the rows automatically (MySQL: `INT AUTO_INCREMENT`).
+- *Foreign key:* `REFERENCES majors(major_id)` makes `students.major_id` a foreign key.
+  Every value must be an existing `major_id` of `majors` or `NULL`.
+- *`CHECK`:* the condition in brackets must hold for every row, here the GPA lies between 0 and 4.
+  A row for which the condition is `NULL` (e.g. `gpa` is `NULL`) is accepted.
+
+The database rejects every row which violates a constraint:
+```sql
+INSERT INTO majors (major) VALUES ('Data Science'), ('Mathematics');
+
+INSERT INTO students (first_name, last_name, major_id, gpa) VALUES ('Ada', 'Lovelace', 2, 3.9);    -- ok
+INSERT INTO students (first_name, last_name, major_id, gpa) VALUES ('Alan', 'Turing', 7, 3.5);     -- error: major_id 7 does not exist
+INSERT INTO students (first_name, last_name, major_id, gpa) VALUES ('Grace', 'Hopper', 1, 4.5);    -- error: violates CHECK
+INSERT INTO majors (major) VALUES ('Mathematics');                                                 -- error: violates UNIQUE
+```
+The foreign key also protects the referenced table:
+`DELETE FROM majors WHERE major_id = 2;` and `DROP TABLE majors;` fail as long as a student refers to it
+(`DROP TABLE majors CASCADE;` would also remove the foreign key constraint).
+
+Primary keys consisting of several columns, foreign keys and `CHECK` constraints can also be written
+after the columns as *table constraints*.
+This is necessary if the constraint involves several columns.
+With `CONSTRAINT name` you can give the constraint a name which then appears in the error messages:
+```sql
+CREATE TABLE majors_courses (
+    major_id INTEGER REFERENCES majors(major_id),
+    course_id INTEGER,
+    PRIMARY KEY (major_id, course_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+CREATE TABLE loans (
+    loan_id SERIAL PRIMARY KEY,
+    loan_date DATE NOT NULL,
+    return_date DATE,
+    CONSTRAINT valid_period CHECK (return_date >= loan_date)
+);
+```
+(`majors_courses` needs a table `courses` with primary key `course_id`.)
+Constraints can be added to an existing table, too:
+```sql
+ALTER TABLE students ADD CONSTRAINT gpa_positive CHECK (gpa > 0);
+```
+
 ## DML: Working with data
+
+Recall: **DML** = Data Manipulation Language.
+These statements work with the rows (the data) of the tables, i.e. the CRUD operations:
+`INSERT` (create), `SELECT` (read), `UPDATE` and `DELETE`.
 
 ### `INSERT`
 
@@ -187,6 +282,52 @@ The `%` is a *wildcard character* replacing missing letters:
 SELECT * FROM table_name WHERE firstname LIKE 'R%';
 ```
 This returns all rows where the first name starts with `R`.
+- `_` replaces exactly one character, e.g. `LIKE 'R_v'` matches `Rav` but not `Raul`.
+- In PostgreSQL `LIKE` is case-sensitive, `ILIKE` is the case-insensitive version (in MySQL `LIKE` is case-insensitive by default).
+  `NOT LIKE` and `NOT ILIKE` return the opposite (see also [SQL and Bash](5-sql-and-bash.md)).
+
+**Working with strings.**
+In [Fix Names in a Table](leet-challenges/7-advanced-regex/1667-fix-names-in-a-table.ipynb)
+strings are cut into pieces and concatenated again with `||`:
+```sql
+SELECT user_id, UPPER(LEFT(name, 1)) || LOWER(RIGHT(name, LENGTH(name) - 1)) AS name
+FROM Users ORDER BY user_id;
+```
+- `LEFT(name, n)` / `RIGHT(name, n)`: first / last `n` characters,
+  `SUBSTRING(name, 2)`: everything from the second character on.
+- `UPPER`, `LOWER`: upper- and lowercase, `LENGTH`: number of characters.
+- `||` concatenates strings, e.g. `'mAriE ANN'` becomes `'M' || 'arie ann' = 'Marie ann'`.
+- `CONCAT('a', 'b', ...)` concatenates, too.
+  Difference: `'Hello' || NULL` is `NULL`, whereas `CONCAT('Hello', NULL)` is `'Hello'`.
+
+*`||` works in PostgreSQL, SQLite and Db2, but in MySQL `||` means logical `OR` by default.*
+In MySQL use `CONCAT`, which also works in PostgreSQL:
+```sql
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) AS name
+FROM Users ORDER BY user_id;
+```
+*Remark.* PostgreSQL also has `INITCAP(name)`, but it capitalizes *every* word: `'mAriE ANN'` becomes `'Marie Ann'`.
+
+**Regular expressions.**
+`LIKE` only knows the wildcards `%` and `_`.
+For more complex patterns PostgreSQL has regular expressions (POSIX):
+- `~` matches a regular expression (case-sensitive), `~*` case-insensitive,
+  `!~` and `!~*` are the negations.
+- `SIMILAR TO` is a mixture of `LIKE` and regular expressions, e.g. `firstname SIMILAR TO '(R|H)%'`.
+- `REGEXP_REPLACE(string, pattern, replacement, 'g')` replaces all (`'g'` = global) matches.
+
+```sql
+-- first names starting with R
+SELECT * FROM table_name WHERE firstname ~ '^R';
+-- first names with exactly three letters, starting with r or R
+SELECT * FROM table_name WHERE firstname ~* '^r[a-z]{2}$';
+-- valid e-mail addresses: start with a letter, then letters, digits, _ . -
+SELECT * FROM table_name WHERE mail ~ '^[A-Za-z][A-Za-z0-9_.-]*@leetcode\.com$';
+-- replace multiple spaces by a single one
+SELECT REGEXP_REPLACE(name, '\s+', ' ', 'g') FROM table_name;
+```
+*The operators `~`, `~*`, `!~`, `!~*` and `SIMILAR TO` only work in PostgreSQL.*
+MySQL uses `REGEXP` (or `REGEXP_LIKE(string, pattern)`), e.g. `WHERE firstname REGEXP '^R'`.
 
 **Ranges**
 ```sql
@@ -216,6 +357,44 @@ SELECT country, COUNT(country) FROM Author GROUP BY country;
 You can name the result column with `AS`: `COUNT(country) AS column_name`.
 
 `HAVING` adds a condition to grouped results, i.e. it works like `WHERE` but only for `GROUP BY`.
+- `WHERE` filters the *rows before* grouping,
+- `HAVING` filters the *groups after* grouping and can therefore use aggregate functions.
+
+**Example.** Countries with more than one author:
+```sql
+SELECT country, COUNT(country) AS num_authors
+FROM Author
+GROUP BY country
+HAVING COUNT(country) > 1;
+```
+With `WHERE COUNT(country) > 1` instead you get `ERROR: aggregate functions are not allowed in WHERE`.
+
+**Example (`WHERE` and `HAVING` together).** Countries with at least two authors born in 1970 or later:
+```sql
+SELECT country, COUNT(*) AS num_authors
+FROM Author
+WHERE birth_date >= '1970-01-01'
+GROUP BY country
+HAVING COUNT(*) >= 2
+ORDER BY num_authors DESC;
+```
+The order of the clauses is `WHERE` -> `GROUP BY` -> `HAVING` -> `ORDER BY` -> `LIMIT`.
+
+*MySQL also allows the alias in `HAVING`, e.g. `HAVING num_authors > 1`; this does not work in PostgreSQL*
+(`ERROR: column "num_authors" does not exist`).
+In PostgreSQL repeat the aggregate function: `HAVING COUNT(country) > 1`.
+
+**Example from the leet-challenges.** In
+[The Number of Employees Which Report to Each Employee](leet-challenges/5-advanced-select-and-joins/1731-the-number-of-employees-which-report-to-each-employee.ipynb)
+the employees are grouped by their manager and the group of employees without a manager is removed:
+```sql
+SELECT reports_to AS manager_id, COUNT(*) AS reports_count, ROUND(AVG(age), 0) AS average_age
+FROM Employees
+GROUP BY reports_to
+HAVING reports_to IS NOT NULL;
+```
+Since the condition `reports_to IS NOT NULL` contains no aggregate function,
+`WHERE reports_to IS NOT NULL` (before `GROUP BY`) gives the same result here.
 
 ## Built-in database functions
 
@@ -241,46 +420,72 @@ You can perform operations between columns:
 SELECT AVG(COST / QUANTITY) FROM table_name WHERE ...;
 ```
 
+**Integer division.**
+*In PostgreSQL (and SQLite) `/` returns an integer if both inputs are integers:*
+the result is truncated towards zero, e.g. `7 / 2 = 3` and `-7 / 2 = -3`
+(the remainder is `7 % 2 = 1`).
+So if `COST` and `QUANTITY` are `INTEGER` columns, the query above averages the truncated quotients:
+for the rows `(7, 2)` and `(10, 4)` it returns `(3 + 2) / 2 = 2.5` instead of `(3.5 + 2.5) / 2 = 3.0`.
+In MySQL `/` always returns a decimal number (`7 / 2 = 3.5000`), integer division is `DIV`.
+
+To get the exact quotient in PostgreSQL, convert one of the inputs with `::numeric`:
+```sql
+SELECT 7::numeric / 2;                                           -- 3.5000000000000000
+SELECT AVG(COST::numeric / QUANTITY) FROM table_name WHERE ...;
+```
+- `x::numeric` converts `x` to the data type `NUMERIC`, a decimal number with exact arithmetic.
+  Then the division returns a decimal number instead of an integer.
+- `::type` is PostgreSQL syntax. The standard SQL version `CAST(x AS NUMERIC)` works in all dialects.
+- Other possibilities: `x * 1.0 / y` or `x::float / y` (floating point number, `DOUBLE PRECISION`).
+  But `ROUND(value, 2)` with two arguments only exists for `NUMERIC` in PostgreSQL,
+  `ROUND(7::float / 3, 2)` gives an error. Therefore `::numeric` is the best choice together with `ROUND`.
+
+**Example from the leet-challenges.** In
+[Average Selling Price](leet-challenges/3-basic-aggregate-functions/1251-average-selling-price.ipynb)
+the columns `units` and `price` are `INTEGER`, so `SUM(total)` and `SUM(units)` are integers, too.
+Without `::NUMERIC` the average price would be truncated to an integer:
+```sql
+ROUND(SUM(total)::NUMERIC / SUM(units), 2)
+```
+In [Average Time of Process per Machine](leet-challenges/2-basic-joins/1661-average-time-of-process-per-machine.ipynb)
+the timestamps are floating point numbers and `::numeric` is needed so that `ROUND( _ , 3)` works.
+
 ### Scalar functions
 
 `ROUND`, `LENGTH` (length of a string), `UCASE` (uppercase), `LCASE` (lowercase).
 
-`UCASE` and `LCASE` are good to use in the `WHERE` clause,
-e.g. `WHERE LCASE(name) = 'john'` matches independent of capitalization.
+*`UCASE` and `LCASE` work in MySQL and Db2, but not in PostgreSQL.*
+In PostgreSQL use `UPPER` and `LOWER` (they also work in MySQL, Db2 and SQLite).
+
+Upper- and lowercase functions are good to use in the `WHERE` clause.
+*MySQL:* `WHERE LCASE(name) = 'john'`, *PostgreSQL:* `WHERE LOWER(name) = 'john'`
+matches independent of capitalization.
 
 ### Date and time functions
 
 The database has the data types `DATE`, `TIME`, `TIMESTAMP`
-and functions such as `YEAR()`, `MONTH()`, `DAY()`:
+and functions such as `YEAR()`, `MONTH()`, `DAY()`.
+*These functions work in MySQL and Db2, but not in PostgreSQL:*
 ```sql
 SELECT DAY(date_column) FROM table_name;
 ```
+In PostgreSQL use `EXTRACT` (also works in MySQL):
+```sql
+SELECT EXTRACT(DAY FROM date_column) FROM table_name;
+-- similarly EXTRACT(YEAR FROM ...), EXTRACT(MONTH FROM ...)
+```
+
 You can perform operations with dates and get the current date and time,
-e.g. return the difference between today and a date column in years, months, days:
+e.g. return the difference between today and a date column in years, months, days.
+*`FROM_DAYS` and `DATEDIFF` only work in MySQL:*
 ```sql
 SELECT FROM_DAYS(DATEDIFF(CURRENT_DATE, date_column)) FROM table_name;
 ```
-
-## Sub-queries
-
-**Sub-query** = query nested inside another query, e.g.
+In PostgreSQL:
 ```sql
-SELECT column_name_1 FROM table_name
-WHERE column_name_2 = (SELECT MAX(column_name_2) FROM table_name);
+SELECT AGE(CURRENT_DATE, date_column) FROM table_name;   -- e.g. 51 years 9 mons 24 days
+SELECT CURRENT_DATE - date_column FROM table_name;       -- difference in days, e.g. 18925
 ```
-Here a sub-query is needed because an aggregate function cannot be directly evaluated in the `WHERE` clause.
-
-Sub-queries can also be used in the `FROM` clause, e.g. when joining or working with multiple tables.
-
-**Why sub-queries?**
-- more powerful queries,
-- e.g. aggregate functions cannot be evaluated in the `WHERE` clause,
-- derived tables, e.g. for `JOIN`s.
-  A *derived table* is a sub-query in the `FROM` clause:
-  the outer query uses the result of the sub-query as its data source, like a temporary table.
-  ```sql
-  SELECT * FROM (SELECT column_name_1, column_name_2 FROM table_name) AS derived_table;
-  ```
 
 ## Working with multiple tables
 
@@ -291,11 +496,33 @@ There are three ways:
 
 ### Sub-queries
 
-Access the `employees` table and use a sub-query to filter by the department id in another table:
+**Sub-query** = query nested inside another query.
+It can be used with one table, e.g.
+```sql
+SELECT column_name_1 FROM table_name
+WHERE column_name_2 = (SELECT MAX(column_name_2) FROM table_name);
+```
+Here a sub-query is needed because an aggregate function cannot be directly evaluated in the `WHERE` clause
+(`WHERE column_name_2 = MAX(column_name_2)` gives an error).
+
+With several tables: access the `employees` table and use a sub-query to filter by the department id in another table:
 ```sql
 SELECT * FROM employees
 WHERE DEP_ID IN (SELECT DEPT_ID_DEP FROM departments);
 ```
+
+Sub-queries can also be used in the `FROM` clause, e.g. for `JOIN`s.
+Such a sub-query is called a *derived table*:
+the outer query uses the result of the sub-query as its data source, like a temporary table.
+```sql
+SELECT * FROM (SELECT column_name_1, column_name_2 FROM table_name) AS derived_table;
+```
+
+**Why sub-queries?**
+- more powerful queries,
+- aggregate functions in conditions (see above),
+- derived tables,
+- access to data of several tables.
 
 ### Implicit `JOIN`
 
@@ -429,6 +656,7 @@ They can be written in many databases.
 - reuse of code,
 - increase in security.
 
+*The following syntax only works in MySQL:*
 ```sql
 DELIMITER $$
 CREATE PROCEDURE UPDATE_SAL (...)
@@ -439,6 +667,20 @@ DELIMITER ;
 ```
 You need to change the `DELIMITER`, e.g. to `$$`,
 so that the `;` inside the procedure does not end the `CREATE PROCEDURE` statement.
+
+PostgreSQL does not need `DELIMITER`.
+The body of the procedure is put between `$$ ... $$` and you have to specify the language `plpgsql`:
+```sql
+CREATE PROCEDURE UPDATE_SAL (IN p_emp_id CHAR(9), IN p_raise DECIMAL)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE employees SET SALARY = SALARY + p_raise WHERE EMP_ID = p_emp_id;
+END;
+$$;
+
+CALL UPDATE_SAL('E1', 500);
+```
 
 ### ACID transactions
 
@@ -559,32 +801,45 @@ To use SQL magic:
 - E.g. you can use `pandas.read_sql(...)`.
   Use `"..."` (double quotes) for column names, e.g. if they contain spaces or mixed case.
 
-**Getting table and column names** via `sqlite_master`, e.g.
+**Getting table and column names.**
+*The table `sqlite_master` only exists in SQLite:*
 ```sql
 SELECT name FROM sqlite_master WHERE type = 'table';
 ```
+The standard way in PostgreSQL (and MySQL) is
+```sql
+SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+```
+In `psql` you can also use `\dt` (tables) and `\d table_name` (columns of a table).
 
-## MySQL vs. PostgreSQL
+## Differences to PostgreSQL
 
-The course uses MySQL.
+The course uses MySQL, some material uses IBM Db2 and the Python part uses SQLite.
 Most commands of these notes work the same in PostgreSQL:
-`CREATE TABLE`, `ALTER TABLE ... ADD [COLUMN]`, `DROP COLUMN`, `DROP TABLE`, `INSERT`, `SELECT`, `WHERE`, `LIKE`, `BETWEEN`, `IN`,
+`CREATE TABLE`, `ALTER TABLE ... ADD [COLUMN]`, `DROP COLUMN`, `DROP TABLE [IF EXISTS]`, `PRIMARY KEY`, `REFERENCES`, `CHECK`,
+`INSERT`, `SELECT`, `WHERE`, `LIKE`, `BETWEEN`, `IN`,
 `LIMIT ... OFFSET`, `ORDER BY`, `GROUP BY`, `HAVING`, `COUNT`, `SUM`, `MIN`, `MAX`, `AVG`, `ROUND`, `LENGTH`,
 sub-queries, joins, `CREATE VIEW`, `WITH ... AS`, `BEGIN`, `COMMIT`, `ROLLBACK`.
 
 The following commands are different:
 
-| Task                        | MySQL (as in these notes)                         | PostgreSQL                                              |
-|-----------------------------|---------------------------------------------------|---------------------------------------------------------|
-| Change the data type        | `ALTER TABLE t MODIFY c datatype;`                | `ALTER TABLE t ALTER COLUMN c TYPE datatype;`           |
-| Delete all rows             | `TRUNCATE TABLE t;` (`IMMEDIATE` is only for Db2) | `TRUNCATE TABLE t;`                                     |
-| Upper- / lowercase          | `UCASE(c)`, `LCASE(c)`                            | `UPPER(c)`, `LOWER(c)` (also work in MySQL)             |
-| Year, month, day of a date  | `YEAR(d)`, `MONTH(d)`, `DAY(d)`                   | `EXTRACT(YEAR FROM d)`, `EXTRACT(MONTH FROM d)`, `EXTRACT(DAY FROM d)` |
-| Time since a date           | `FROM_DAYS(DATEDIFF(CURRENT_DATE, d))`            | `AGE(CURRENT_DATE, d)` or `CURRENT_DATE - d` (in days)  |
-| Case-insensitive `LIKE`     | `LIKE` (case-insensitive by default)              | `ILIKE` (`LIKE` is case-sensitive)                      |
-| Quote column names          | `` `column name` `` (backticks)                   | `"column name"` (double quotes)                         |
-| List all tables             | `SHOW TABLES;`                                    | `\dt` in psql                                           |
-| Python module               | `mysql-connector-python`                          | `psycopg` (or the older `psycopg2`)                     |
+| Task                        | Other dialect (as in these notes)                          | PostgreSQL                                              |
+|-----------------------------|------------------------------------------------------------|---------------------------------------------------------|
+| Change the data type        | MySQL: `ALTER TABLE t MODIFY c datatype;`                  | `ALTER TABLE t ALTER COLUMN c TYPE datatype;`           |
+| Delete all rows             | Db2: `TRUNCATE TABLE t IMMEDIATE;`                         | `TRUNCATE TABLE t;` (as in MySQL)                       |
+| Automatic numbering         | MySQL: `INT AUTO_INCREMENT`                                | `SERIAL`                                                |
+| Upper- / lowercase          | MySQL, Db2: `UCASE(c)`, `LCASE(c)`                         | `UPPER(c)`, `LOWER(c)` (also work in MySQL)             |
+| Year, month, day of a date  | MySQL, Db2: `YEAR(d)`, `MONTH(d)`, `DAY(d)`                | `EXTRACT(YEAR FROM d)`, `EXTRACT(MONTH FROM d)`, `EXTRACT(DAY FROM d)` |
+| Time since a date           | MySQL: `FROM_DAYS(DATEDIFF(CURRENT_DATE, d))`              | `AGE(CURRENT_DATE, d)` or `CURRENT_DATE - d` (in days)  |
+| Division of integers        | MySQL: `7 / 2 = 3.5000`, integer division `7 DIV 2 = 3`    | `7 / 2 = 3`, `7::numeric / 2 = 3.5` (as in SQLite)      |
+| Case-insensitive `LIKE`     | MySQL: `LIKE` (case-insensitive by default)                | `ILIKE` (`LIKE` is case-sensitive)                      |
+| Concatenate strings         | MySQL: `CONCAT(a, b)` (`\|\|` means `OR`)                  | `a \|\| b` or `CONCAT(a, b)`                            |
+| Regular expressions         | MySQL: `c REGEXP 'pattern'`                                | `c ~ 'pattern'`, `c ~* 'pattern'` (case-insensitive)    |
+| Alias in `HAVING`           | MySQL: `HAVING alias > 1` allowed                          | not allowed, repeat the aggregate function              |
+| Stored procedures           | MySQL: `DELIMITER $$ ... END $$`                           | `LANGUAGE plpgsql AS $$ ... $$;`                        |
+| Quote column names          | MySQL: `` `column name` `` (backticks)                     | `"column name"` (double quotes)                         |
+| List all tables             | MySQL: `SHOW TABLES;`, SQLite: `sqlite_master`             | `\dt` in psql or `information_schema.tables`            |
+| Python module               | MySQL: `mysql-connector-python`, SQLite: `sqlite3`         | `psycopg` (or the older `psycopg2`)                     |
 
 *Remarks.*
 - PostgreSQL cannot change the data type of a column which is used by a view.
@@ -592,27 +847,6 @@ The following commands are different:
 - `AGE(CURRENT_DATE, d)` returns the difference in years, months and days, e.g. `50 years 9 mons 17 days`.
 - PostgreSQL converts unquoted names to lowercase: `SELECT F_NAME ...` looks for the column `f_name`.
   Therefore `"F_NAME"` (with double quotes) only works if the column was created with double quotes.
-- In SQLite the tables are listed via `sqlite_master` (see [Real-world datasets](#real-world-datasets)).
-  The standard way in PostgreSQL (and MySQL) is
-  ```sql
-  SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
-  ```
-
-### Stored procedures in PostgreSQL
-
-PostgreSQL does not need `DELIMITER`.
-The body of the procedure is put between `$$ ... $$` and you have to specify the language `plpgsql`:
-```sql
-CREATE PROCEDURE UPDATE_SAL (IN p_emp_id CHAR(9), IN p_raise DECIMAL)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    UPDATE employees SET SALARY = SALARY + p_raise WHERE EMP_ID = p_emp_id;
-END;
-$$;
-
-CALL UPDATE_SAL('E1', 500);
-```
 
 ### SQL magic with PostgreSQL
 
