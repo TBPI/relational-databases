@@ -267,5 +267,17 @@ SELECT * FROM table_1 LEFT JOIN table_2 ON table_1.key = table_2.key;
 In this case, if table_2 has a row where table_2.key does not match any key in table_1, this entry will *not* be displayed.
 4) `RIGHT OUTER JOIN`: all the records from the right table and the matching one from the left table.
 5) `SELF JOIN`: join the table with itself.
+```
+SELECT * FROM table_name t1 INNER JOIN table_name t2 ON ...
+```
 6) `CROSS JOIN`: as a Cartesian join, joins every entry of first table with every entry from second table.
+```
+SELECT * FROM table_1, table_2;
+```
+Alternatively the cross join can be performed as
+```
+SELECT * FROM table_1 CROSS JOIN table_2;
+```
 
+**Example.**
+Given a table with student_id and student_names, you want to add the subjects `Math`, `Physics`, `Programming` from the Table `Subjects` to each of the students. You can do this via the `CROSS JOIN`, see [1280-students-and-examinations.ipynb](leet-challenges/2-basic-joins/1280-students-and-examinations.ipynb).
