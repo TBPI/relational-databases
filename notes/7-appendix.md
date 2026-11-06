@@ -10,7 +10,7 @@
 For example: Visual Studio (by Microsoft), Xcode (by Apple), Android Studio (by Google).
 
 A **cloud-based editor** is an online tool that allows one to write, edit, and manage code or text directly through a web browser without needing to install software locally.
-For example, replit, GitHub Codespaces, ONA.
+For example, Replit, GitHub Codespaces, Ona (formerly Gitpod).
 
 ### How to create a project and run the code locally in VS Code?
 
@@ -18,7 +18,7 @@ VS Code considers projects to be `workspaces`.
 
 Some basic bash commands make it easy to work with the terminal.
 
-*Remark.*
+#### Difference between PowerShell and Bash
 Windows PowerShell does not support Bash commands,
 but VS Code makes it easy to use Bash
 as the integrated terminal.
@@ -36,8 +36,6 @@ Add the following configuration:
 }
 ```
 
-#### Difference between PowerShell and Bash
-
 These notes are about Bash.
 The differences to the Windows PowerShell are huge.
 
@@ -51,16 +49,26 @@ The Windows PowerShell command is
 New-Item new_file.txt
 ```
 
-#### Live Server
+Creating a directory `new_directory` in Bash:
+```bash
+mkdir new_directory
+```
+The same command works in Windows PowerShell as well,
+but one can also use:
+```powershell
+New-Item -ItemType Directory -Name "new_directory"
+```
 
-`mkdir` = make directory.
-Creates a new directory
+### Live Server
 
-If one creates a file such as `index.html`,
-the easiest way to open the file afterwards, is to use the *Live Server* extension.
-Then click on *Go Live* or load `http://localhost:5500/` in the browser, to see the live changes.
+For a webpage,
+one often starts with a file named `index.html`.
+The easiest way to open the file afterwards (in live version)
+is to use the *Live Server* extension.
+Then click on *Go Live* or load `http://localhost:5500/` in the browser,
+to see the live changes.
 
-### Useful keyboard shortcuts for maximizing productivity in VS Code.
+### Useful keyboard shortcuts for maximizing productivity in VS Code
 
 `Shift + Alt + F` = runs the configured formatter.
 
@@ -68,11 +76,11 @@ Then click on *Go Live* or load `http://localhost:5500/` in the browser, to see 
 
 `Ctrl + Shift + H` = find and replace.
 
-`Ctrl + Shift + K` = delete.
+`Ctrl + Shift + K` = delete the current line.
 
 `Ctrl + B` = hide the sidebar.
 
-`Ctrl + Alt + down/up` = extend the cursor to consecutive lines.
+`Ctrl + Alt + Up/Down` = extend the cursor to consecutive lines above/below.
 
 `Ctrl + Shift + P` = opens command palette.
 
