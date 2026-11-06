@@ -1,7 +1,7 @@
 [project]
 name = "learning-sql"
 version = "0.1.0"
-description = "My SQL portfolio: LeetCode SQL 50 solutions in PostgreSQL (Jupyter notebooks), freeCodeCamp Bash & SQL projects, and my own SQL notes."
+description = "My SQL portfolio: LeetCode Challenges in PostgreSQL, freeCodeCamp Bash & SQL projects, and my notes."
 readme = "README.md"
 authors = [
     { name = "TBPI" }
