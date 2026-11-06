@@ -2,7 +2,7 @@
 
 This repository contains:
 
-- **[Notes](notes/0-contents.md):** my notes on SQL and related topics, from the basics through joins and advanced SQL to using SQL from Python and Bash.
+- **[Notes](notes/0-contents.md):** my notes on SQL and related topics, basics, joins, advanced SQL and using SQL from Python or Bash.
   Start with the [table of contents](notes/0-contents.md).
 - **[LeetCode challenges](leet-challenges/):** my solutions to the LeetCode *Top SQL 50* study plan written down in Jupyter notebooks using SQL magic.
   [0-intro.ipynb](leet-challenges/0-intro.ipynb) explains the setup,
