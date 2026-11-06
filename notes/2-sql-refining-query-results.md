@@ -13,7 +13,7 @@ SELECT * FROM table_name WHERE firstname LIKE 'R%';
 This returns all rows where the first name starts with `R`.
 - `_` replaces exactly one character, e.g. `LIKE 'R_v'` matches `Rav` but not `Raul`.
 - In PostgreSQL `LIKE` is case-sensitive, `ILIKE` is the case-insensitive version (in MySQL `LIKE` is case-insensitive by default).
-  `NOT LIKE` and `NOT ILIKE` return the opposite (see also [SQL and Bash](5-sql-and-bash.md)).
+  `NOT LIKE` and `NOT ILIKE` return the opposite (see also [SQL and Bash](B-sql-and-bash.md)).
 
 **Working with strings.**
 In [Fix Names in a Table](../leet-challenges/7-advanced-regex/1667-fix-names-in-a-table.ipynb)

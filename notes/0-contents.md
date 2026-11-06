@@ -22,6 +22,14 @@ All differences are summarized in [Differences to PostgreSQL](4-advanced-sql.md#
 6) [Bash and SQL](6-bash-and-sql.md)
 7) [Appendix](7-appendix.md)
 
+## Old notes
+
+There are old notes:
+- [SQL and PostgreSQL](A-sql-and-postgresql.md)
+- [SQL and Bash](B-sql-and-bash.md)
+ 
+They need to be incorporated into the 'official script'.
+
 # Sources
 - [freeCodeCamp](https://www.freecodecamp.org/learn/relational-databases-v9),
 - [W3](https://www.w3schools.com/sql/),

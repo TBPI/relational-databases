@@ -126,7 +126,7 @@ It can even be undone with `ROLLBACK` if it is run inside a transaction (see [AC
 - *Domain integrity:* well-defined data type, format, value and nullability,
   ensured e.g. by the constraints `CHECK` and `NOT NULL`.
 
-**Example.** (similar to [SQL and Bash](5-sql-and-bash.md), see also [Primary and foreign keys](3-sql-and-postgresql.md#primary-and-foreign-keys))
+**Example.** (similar to [SQL and Bash](B-sql-and-bash.md), see also [Primary and foreign keys](A-sql-and-postgresql.md#primary-and-foreign-keys))
 ```sql
 CREATE TABLE majors (
     major_id SERIAL PRIMARY KEY,
