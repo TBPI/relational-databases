@@ -497,4 +497,4 @@ To do so, one has to choose a branch or GitHub Actions as a sources in `Settings
 
 `git pull --rebase` - `git fetch` merge into current branch and replay local commits on top.
 
-To be continued.
+*To be continued.*
