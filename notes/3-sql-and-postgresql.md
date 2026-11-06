@@ -30,27 +30,27 @@ Relational databases have a wide range application: web development, inventory m
 *Programming language used for storing and managing data in relational databases.*
 
 To open the psql shell in the command prompt/terminal you need to enter
-```
+```bash
 psql -U <username> -d <database_name>
 ```
 or
-```
+```bash
 psql --username=<username> --dbname=<database_name>
 ```
 
 You can create a database via
-```
+```sql
 CREATE DATABASE my_database;
 ```
 You can delete a database using `DROP DATABASE database_name`.
 
 In the command line you can connect to a database via `\c database_name`.
 You see to which database you are connected via
-```
+```text
 <database_name>=#
 ```
 For creating a table you need the `CREATE TABLE` keyword:
-```
+```sql
 CREATE TABLE table_name (
     column1 data_type column_constraint,
     column2 data_type column_constraint,
@@ -63,11 +63,11 @@ you specify the number of columns separated with commas and the data type for ea
 In order to delete a table you can use the `DROP TABLE` statement.
 
 It is also possible to create a empty table:
-```
+```sql
 CREATE TABLE table_name();
 ```
 Afterwards, it is possible to add columns to the table using `ALTER TABLE`:
-```
+```sql
 ALTER TABLE table_name ADD COLUMN column1 DATATYPE CONSTRAINTS;
 ```
 You can add any constraints (such as `NOT NULL`, `UNIQUE`, `PRIMARY KEY`) after fixing the data type.
@@ -124,7 +124,7 @@ Called with `BOOLEAN` data type which can be set to `TRUE` or `FALSE`.
 
 ### Constraints
 If you need to add a constraint after having defined the table, you can do as follows:
-```
+```sql
 ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
 ALTER TABLE table_name ADD FOREIGN KEY (column_name) REFERENCES foreign_table(foreign_table_key);
 ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
@@ -136,7 +136,7 @@ ALTER TABLE table_name ALTER COLUMN column_name SET NOT NULL;
 
 We know already how to create a table.
 To add a row to a table you call
-```
+```sql
 INSERT INTO table_name (column1, column2, column3, ...)
 VALUES (value1, value2, value 3, ...);
 ```
@@ -146,7 +146,7 @@ Note that
 - you can add several rows at ones by separating the sets of values with a comma.
 
 In order to change data in a row, use:
-```
+```sql
 UPDATE table_name SET column_name = new_value WHERE condition;
 ```
 
@@ -154,15 +154,15 @@ UPDATE table_name SET column_name = new_value WHERE condition;
 
 The `SELECT` statement is used for querying data from one or more table.
 If you want to select all the information of a table you use an asterisk:
-```
+```sql
 SELECT * FROM table_name;
 ```
 You can also specify attributes to select only specific column
-```
+```sql
 SELECT column_attribute1, column_attribute2 FROM table_name;
 ```
 Moreover, you can specify constraints using the `WHERE` keyword:
-```
+```sql
 SELECT column_attribute1, ... FROM table_name WHERE column_attribute3 < 5
 ```
 
@@ -177,7 +177,7 @@ It is also possible to remove a row from a table using `DELETE FROM table_name W
 
 When testing scripts, it might be useful to delete all entries from a table.
 This can be done with the `TRUNCATE` keyword.
-```
+```sql
 TRUNCATE table_name;
 ```
 
@@ -187,12 +187,12 @@ A *primary key* is a column in a table such that the value of the column uniquel
 Therefore values in the primary key column cannot be `NULL`.
 
 You can simply add the `PRIMARY KEY` statement when defining column to make it the primary key, i.e.
-```
+```sql
 ALTER TABLE table_name ADD COLUMN column_name DATA TYPE PRIMARY KEY
 ```
 There is the possibility to have a *composite primary key* consisting of several columns identifying each row uniquely.
 In this case you can modify the table creation as follows:
-```
+```sql
 CREATE TABLE table_name (
     column1 DATA TYPE column_constraint,
     column2 DATA TYPE column_constraint,
@@ -208,14 +208,14 @@ Primary keys are essential for ensuring
 - establishing relationships with other tables in a relational database.
 
 In order to add a primary key to an existing table, you can use the command:
-```
+```sql
 ALTER TABLE characters ADD PRIMARY KEY (column_name);
 ```
 A *foreign key* is a column (or a set of columns) in a table
 that references (usually) the primary key of another table.
 A table can have multiple foreign keys.
 You can add foreign keys as follows
-```
+```sql
 CREATE TABLE table_name (
     column1 DATA TYPE column_constraint,
     column2 DATA TYPE column_constraint,
@@ -253,31 +253,31 @@ Then, the junction table `books_authors` consists of the author_id, and book_id.
 The `JOIN` operations allow you to combine related information from tables to query data.
 
 1) `INNER JOIN`: filters the results to include only rows where the values in the joining columns that you specify are equal in both tables, e.g.
-```
+```sql
 SELECT * FROM table_1 INNER JOIN table_2 ON table_1.key = table_2.key;
 ```
 2) `FULL OUTER JOIN`: returns all rows from both tables.
-```
+```sql
 SELECT * FROM table_1 FULL OUTER JOIN ON table_1.key = table_2.key;
 ```
 3) `LEFT OUTER JOIN`: all the records from the left table and the matching from the right table:
-```
+```sql
 SELECT * FROM table_1 LEFT JOIN table_2 ON table_1.key = table_2.key;
 ```
 In this case, if table_2 has a row where table_2.key does not match any key in table_1, this entry will *not* be displayed.
 4) `RIGHT OUTER JOIN`: all the records from the right table and the matching one from the left table.
 5) `SELF JOIN`: join the table with itself.
-```
+```sql
 SELECT * FROM table_name t1 INNER JOIN table_name t2 ON ...
 ```
 6) `CROSS JOIN`: as a Cartesian join, joins every entry of first table with every entry from second table.
-```
+```sql
 SELECT * FROM table_1, table_2;
 ```
 Alternatively the cross join can be performed as
-```
+```sql
 SELECT * FROM table_1 CROSS JOIN table_2;
 ```
 
 **Example.**
-Given a table with student_id and student_names, you want to add the subjects `Math`, `Physics`, `Programming` from the Table `Subjects` to each of the students. You can do this via the `CROSS JOIN`, see [1280-students-and-examinations.ipynb](leet-challenges/2-basic-joins/1280-students-and-examinations.ipynb).
+Given a table with student_id and student_names, you want to add the subjects `Math`, `Physics`, `Programming` from the Table `Subjects` to each of the students. You can do this via the `CROSS JOIN`, see [1280-students-and-examinations.ipynb](../leet-challenges/2-basic-joins/1280-students-and-examinations.ipynb).

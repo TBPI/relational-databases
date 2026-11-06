@@ -283,7 +283,7 @@ sec   rsa3072/KEY_ID
 ```
 
 Then save the GPG key on GitHub:
-```
+```text
 GitHub > Settings > SSH and GPG keys > New GPG key
 ```
 Paste the whole output,

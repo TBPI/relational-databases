@@ -22,13 +22,13 @@ As already observed, it is cumbersome to insert every row separately into the ta
 
 Given the 'rough data', you can write a script which automates this process for you.
 
-In the [workshop](sql-and-bash/workshop1), we are given `csv`-files
+In the [workshop](../free-code-camp/sql-and-bash/workshop1), we are given `csv`-files
 with rough data on students and their majors.
 The `cat <filename>` command in bash prints the whole file
 into the terminal.
 You can use this in a `while` loop to run through the entries in the table.
 Reading out the linebreaks in a file, and saving the content in variables works as follows:
-```
+```bash
 cat courses.csv | while IFS="," read MAJOR COURSE
 do
     STATEMENT
@@ -39,25 +39,25 @@ done
 
 In order to run a script querying the database, you need to access PSQL.
 This can conveniently be done by creating a `PSQL` variable, e.g.
-```
+```bash
     PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
 ``` 
 
 ## Saving your progress
 In order to save the progress made in a database (i.e. all the tables), you can use the command 
-```
+```bash
 pg_dump --clean --create --inserts --username=freecodecamp database_name > database_name.sql
 ```
 
 # Workshop : Building a Student Database: Part 2
 In the first workshop we saved our progress in an `sql`-file.
 In order to use the database, we need to rebuild the database, this is done with
-```
+```bash
 psql -U postgres < students.sql
 ```
 ## Pattern matching
 We can use
-```
+```sql
 SELECT * FROM table_name WHERE CONDITIONS
 ```
 with `CONDITIONS` being for example arithmetic conditions.
@@ -70,9 +70,9 @@ For example the condition `WHERE course LIKE '_lgortihm'` returns everything whe
 Here are some useful commands with to find patterns:
 - `_` placeholder for a pattern that can have any character at this place, but must match everything else.
 - `%` returns everything that matches the pattern after or before the `%`.
-For example in the courses, table of the first [workshop](sql-and-bash/workshop1/), in order to view all courses which have an empty space,
+For example in the courses, table of the first [workshop](../free-code-camp/sql-and-bash/workshop1/), in order to view all courses which have an empty space,
 you can run the SQL-command:
-```
+```sql
 SELECT * FROM courses WHERE course = '% %';
 ```
 
@@ -95,40 +95,40 @@ The order is `WHERE` -> `ORDER BY` -> `LIMIT`.
 
 ## Mathematical operations with numerical columns
 - `MIN`: Selects the minimum from a given column
-```
+```sql
 SELECT MIN(column_name) FROM table_name;
 ```
 - `MAX`: Selects the maximum from a given column
-```
+```sql
 SELECT MAX(column_name) FROM table_name;
 ```
 - `SUM`: Returns sum of all entries in a column
-```
+```sql
 SELECT SUM(column_name) FROM table_name;
 ```
 - `AVG`: Returns the average of all entries from a column
-```
+```sql
 SELECT AVG(column_name) FROM table_name;
 ```
 In order to round decimals, you can use `CEIL`, `FLOOR` or `ROUND(number_to_round, number_of_decimals)`.
 - `COUNT`: Counts the number of entries in a column.
 - `DISTINCT`: Shows only unique values.
 The same can be done by `GROUP BY` as follows
-```
+```sql
 SELECT column_name FROM table_name GROUP BY column_name
 ```
-The advantage of `GROUP BY` is that other aggregate functions can be added. For example, in the [workshop](sql-and-bash/workshop1), we can select all major_id and count how often they appear in the students table as follows:
-```
+The advantage of `GROUP BY` is that other aggregate functions can be added. For example, in the [workshop](../free-code-camp/sql-and-bash/workshop1), we can select all major_id and count how often they appear in the students table as follows:
+```sql
 SELECT major_id, COUNT(*) FROM students GROUP BY major_id;
 ```
 If you want the unique major ids with minimal and maximal gpas, the command is
-```
+```sql
 SELECT major_id, MIN(gpa), MAX(gpa) FROM students GROUP BY major_id;
 ```
 This leads to three columns of all unique `major_id`s together with the minimal and the maximal gpa.
 
 In addition, you can add `HAVING condition` after the `GROUP BY` keyword, e.g.
-```
+```sql
 SELECT major_id, MIN(gpa), MAX(gpa) FROM students GROUP BY major_id HAVING MAX(gpa) = 4.0;
 ```
 - Using `SELECT column_name AS new_column_name...` returns the column with a newly selected column name.

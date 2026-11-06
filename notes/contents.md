@@ -10,7 +10,7 @@ The code snippets in these notes come from several SQL dialects:
 If a snippet does not work in PostgreSQL,
 this is said before the snippet together with the dialect in which it works,
 and the PostgreSQL version is shown right after it.
-All differences are summarized in [Differences to PostgreSQL](#differences-to-postgresql).
+All differences are summarized in [Differences to PostgreSQL](4-advanced-sql.md#differences-to-postgresql).
 
 # Table of contents
 
