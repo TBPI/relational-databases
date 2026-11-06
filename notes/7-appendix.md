@@ -4,30 +4,67 @@
 
 ### What is a code editor?
 
-**Code editor =** any application that allows you to edit code.
+**Code editor =** any application that allows one to edit code.
 
-**Integrated Development Environment (IDE) =** full application that allows you to compile, run, and debug code while you edit it.
-For example: Visual Studio (by Microsoft), XCode (by Apple), Android Studio (by Google).
+**Integrated Development Environment (IDE) =** full application that allows one to compile, run, and debug code while editing it.
+For example: Visual Studio (by Microsoft), Xcode (by Apple), Android Studio (by Google).
 
-A **cloud-based editor** is an online tool that allows you to write, edit, and manage code or text directly through a web browser without needing to install software locally.
+A **cloud-based editor** is an online tool that allows one to write, edit, and manage code or text directly through a web browser without needing to install software locally.
 For example, replit, GitHub Codespaces, ONA.
 
-### How to create a project and run your code locally in VS Code?
+### How to create a project and run the code locally in VS Code?
 
-VS Code considers projects to be `workspaces.'
+VS Code considers projects to be `workspaces`.
+
+Some basic bash commands make it easy to work with the terminal.
+
+*Remark.*
+Windows PowerShell does not support Bash commands,
+but VS Code makes it easy to use Bash
+as the integrated terminal.
+
+To do so, create the following file:
+
+`.vscode/settings.json`
+
+If not yet done, install `Git Bash`.
+
+Add the following configuration:
+```
+{
+  "terminal.integrated.defaultProfile.windows": "Git Bash"
+}
+```
+
+#### Difference between PowerShell and Bash
+
+These notes are about Bash.
+The differences to the Windows PowerShell are huge.
+
+For example to create a new file `new_file.txt`,
+the Bash command is
+```
+touch new_file.txt
+```
+The Windows PowerShell command is
+```
+New-Item new_file.txt
+```
+
+#### Live Server
 
 `mkdir` = make directory.
 Creates a new directory
 
-If you create a file such as `index.html`,
+If one creates a file such as `index.html`,
 the easiest way to open the file afterwards, is to use the *Live Server* extension.
-Then you can click on *Go Live* or load `http://localhost:5500/` in your browser, to see your live changes.
+Then click on *Go Live* or load `http://localhost:5500/` in the browser, to see the live changes.
 
 ### Useful keyboard shortcuts for maximizing productivity in VS Code.
 
-`Shift + Alt + F` = runs your configured formatter.
+`Shift + Alt + F` = runs the configured formatter.
 
-`Ctrl + Shift + F` = search the text contents of all the files in your workspace.
+`Ctrl + Shift + F` = search the text contents of all the files in the current workspace.
 
 `Ctrl + Shift + H` = find and replace.
 
@@ -45,24 +82,27 @@ Then you can click on *Go Live* or load `http://localhost:5500/` in your browser
 Typically Linux environments include Vi or Vim as a text editor. But Vim is quite user-unfriendly.
 
 Editors like Emacs or Nano may need to be installed manually, but are easier to understand.
-To open a file you enter `nano <filename>`.
-Once the file is open you see the version of Nano running and the name of the file your are running as well as its content below.
+To open a file, enter `nano <filename>`.
+Once the file is open,
+one sees the version of Nano running
+and the name of the file that is running as well as its content below.
 
-At the bottom there is a list of available keyboard shortcuts, where `^G` (= Help) stands for `Strg + G`, and `M-` stands for a combination with the `Alt` key.
+At the bottom there is a list of available keyboard shortcuts, where `^G` (= Help) stands for `Ctrl + G`, and `M-` stands for a combination with the `Alt` key.
 
-To edit a file, you press `^O` = `Strg + O` in order for the changes being added to the file.
+To edit a file, press `^O` = `Ctrl + O` in order for the changes being added to the file.
 
-`^C` = `Strg + C` allows you to cancel and go back to editing the file.
+`^C` = `Ctrl + C` allows one to cancel and go back to editing the file.
 
-`^X = Strg + X` allows you to exit Nano.
+`^X = Ctrl + X` allows one to exit Nano.
 
 ### Version control
 
 Version control system: Git, SVN, Mercurial
 
-These tools allow you to track and manage changes in your project.
+These tools make it possible to track
+and manage changes in the project.
 
-Usually, a version control system is merged with a **Version control provider**, e.g. GitHub or Gitlab.
+Usually, a version control system is merged with a **Version control provider**, e.g. GitHub or GitLab.
 
 ### Purpose of sites like GitHub / GitLab
 
@@ -76,10 +116,11 @@ Features of  version control
 
 ### Repositories
 
-When creating a new repository on GitHub, you typically have the following options:
-- *choose a template:* special kind of repository that you can use as a springboard for new repositories (usually not yet set up);
+When creating a new repository on GitHub,
+there are typically the following options:
+- *choose a template:* special kind of repository that one can use as a springboard for new repositories (usually not yet set up);
 later on useful, e.g. for issue templates or documentation;
-- *select an owner:* you or an organization;
+- *select an owner:* the private account or an organization;
 - *choose a name of the repository:* do not use spaces;
 - *choose whether repository is public or private;*
 
@@ -87,7 +128,7 @@ A README file will appear on the repositories homepage: good for documentation.
 
 A `.gitignore` file allows to specify files which should be ignored by Git.
 
-To clone the repository, you can run in the terminal:
+To clone the repository, run in the terminal:
 ```
     git clone git@github.com:username/repository-name
 ```
@@ -97,7 +138,8 @@ To clone the repository, you can run in the terminal:
 This chapter deals with handling security requirements such as SSH and GPG keys in the context of GitHub.
 
 Both use public-private pair.
-You keep a private key on your laptop and share a public key with people who need to verify your authenticity.
+Keep the private key on the personal laptop
+and share a public key with people who need to verify the authenticity.
 
 #### GPG
 GPG means Gnu Privacy Guard. GPG keys are used to sign files or commits.
@@ -107,33 +149,33 @@ To generate a GPG key, need to run (in Bash)
 ```
 gpg --full-generate-key
 ```
-You will be asked to provide a passphrase.
+One will be asked to provide a passphrase.
 
-The gpg key will be stored in a hidden and encrypted directory.
+The GPG key will be stored in a hidden and encrypted directory.
 
-To see the list of your public gpg keys, you run
+To see the list of the public GPG keys, run
 ```
 gpg --list-secret-keys --keyid-format=long
 ```
 
-To get the public key, you use
+To get the public key, use
 
 ```
 gpg --armor --export "<key id>"
 ```
 
-As `key id` you can use your e-mail address that you provided when creating the key or the short key id provided after
+As `key id` one can use the e-mail address that is provided when creating the key or the short key id provided after
 ```
 sec   rsa3072/KEY_ID
 ```
 
-Then you can save the gpg key on GitHub.
+Then save the GPG key on GitHub.
 
-In order to set the key as signing key, you run
+In order to set the key as signing key, run
 ```
 git config --global user.signingkey KEY_ID
 ```
-The flag `git -S -m "add: my signed commit"` lets you sign a key.
+The flag `git -S -m "add: my signed commit"` is used to sign a key.
 
 **Caution:** The setup seems to work properply only with a Linux system.
 
@@ -149,9 +191,9 @@ To generate an SSH key, run
 ssh-keygen -t ed25519 -C "mail-address"
 ```
 
-As for the gpg-key, you will be asked to provide a passphrase.
+As for the GPG-key, one will be asked to provide a passphrase.
 
-You can add ssh keys to Github as well and use them to sign commits. Both seem to be more suitable in a Linux system.
+One can add SSH keys to GitHub as well and use them to sign commits. Both seem to be more suitable in a Linux system.
 
 ### Push
 
@@ -161,64 +203,72 @@ call `git init` after having set up a new repository on GitHub.
 A hidden `.git` file will be added to the repository,
 which will track the Git history.
 
-With `git status` you can ask for the current status on the branch your in.
+With `git status` one can ask for the current status on the branch that is checked out.
 
-By default you will be on the main branch (but it is possible to branch out features and issues to multiple workspaces and merge them later).
+By default one will be on the main branch (but it is possible to branch out features and issues to multiple workspaces and merge them later).
 
-The status will provide you with the following states for files:
+The status provides the following states for files:
 
 - 'Untracked': This file is new to the repository.
 - 'Modified': This file existed and has been changed.
 - 'Deleted': This file has existed and is now deleted.
 - 'Renamed': This file has the same content, but the name changed.
 
-If you want to stage a file, you call
+Here are some useful basic commands:
+
+Stage a file:
 ```
 git add name-of-file
 ```
-If you want to stage all unstaged files, you can simply call
+Stage all unstaged files
 ```
 git add .
 ```
-If you want to unstage a staged file, you write the following command
+Unstage a staged file
 ```
 git reset name-of-file
 ```
 
-Afterwards you commit the file by writing
+Afterwards, commit the file by writing
 ```
 git commit -m "short message"
 ```
 
-You can call `git log` to view the history of commits.
-To add your work to the remote repository on GitHub, you need to write `git push`.
+One can call `git log` to view the history of commits.
+To add the newly commited work to the remote repository on GitHub,
+type `git push`.
 
 ### Contributing to other people's repository
 
-In general you do not have "write access" to others' repositories.
+In general, one does not have "write access" to others' repositories.
 
-In order, to push commits you need therefore *fork* the repository before.
-After forking a (public) repository, you can be the owner of the copy of the repository.
+In order to push commits,
+one needs therefore to *fork* the repository before.
+After forking a (public) repository,
+the 'forker' is the owner of the copy of the repository.
 
 Then, to work remotely on it, clone it (e.g. using SSH).
 
-Looking at the remote your local clone configures works with `git remote -v`
-Note that this will set your fork as the origin and changes in the original repository will not be updated automatically.
+Looking at the remote, the local clone configures works with `git remote -v`
+Note that this will set the fork as the origin
+and changes in the original repository will not be updated automatically.
 
-To update your fork, you need to grab the SSH URL, then run
+To update the fork, one needs to grab the SSH URL, then run
 ```
 git remote add upstream git@github.com:original-repo-username/repo-name.git
 ```
-You can use anything else but `upstream` in the command, but this seems to the standard convention.
+*Remark.*
+One can use anything else but `upstream` in the command,
+but this seems to the standard convention.
 
-Now you can do `git fetch upstream` and `git merge upstream/main` in order to get the last changes from the original project.
+Now type `git fetch upstream` and `git merge upstream/main` in order to get the last changes from the original project.
 
 ### Creating new branches
 
 *Branch* = deviation from the main history
 
-`git branch` allows you to view the existing branches.
-The asterisk means that you are currently in this branch.
+`git branch` allows one to view the existing branches.
+The asterisk indicates the branch that is currently checked out.
 
 Creating a new branch works with
 `git branch branch_name`.
@@ -241,24 +291,24 @@ or
 git switch -c feature
 ```
 
-To push the new branch to the origin, you write in the command line 
+To push the new branch to the origin, type in the command line 
 ```
 git push -u origin branch_name
 ```
 
 ### Pull Requests
 
-To finally merge changes, you need to call a *pull request*.
+To finally merge changes, one needs to call a *pull request* (*PR*).
 
 When creating a pull request on GitHub
 - `base` is the target for the merge,
-- `compare` is what you want to merge.
+- `compare` is the new content that should be merged.
 
-GitHub will show you a diff that highlights the differences between the branches.
+GitHub will show a diff that highlights the differences between the branches.
 
 After the pull request, the changes usually go through a `code review`.
 
-If you receive a pull request, you will see a message `Merge pull request #1`.
+If one receives a pull request, one will see a message `Merge pull request #1`.
 There are three strategies to this:
 1) `Merge`: Brings all of the commits from the head branch, then creates another commit to process and log the merge.
 2) `Squash and Merge`: ALL of the commits from the heads branch will be smashed into a single commit. The new commit will be merged into the base branch without creating a merge commit.
@@ -282,4 +332,8 @@ Solid option for deploying
 The webpage will by default be available on `user_name.github.io`
 and a repository on `user_name.github.io/repo_name`.
 
-### Remaining in Sync with Your Remote Counterparts
+### Remaining in Sync with Remote Counterparts
+
+`git fetch`, `git pull`, `git pull --rebase`
+
+To be continued.
