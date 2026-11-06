@@ -18,6 +18,94 @@ VS Code considers projects to be `workspaces`.
 
 Some basic bash commands make it easy to work with the terminal.
 
+## Understanding the command line
+
+*Command line* = text input interface where the user can write the command and submit/execute them (usually by hitting enter).
+
+*Terminal* = special application which provides the interface for command lines for system-level commands.
+Terminal emulators are 'enhanced' terminals which provide additional functionality to the usual terminal.
+
+*Remark.*
+Microsoft has two standard terminals the Powershell and Command Prompt.
+ 
+
+*Shell* = software that wraps the command line and interprets the input and returns the outputs.
+
+### Speed up productivity in the command line
+
+Similar commands for MacOS and Linux as they both have there roots in Unix.
+For Microsoft they are different.
+
+`Up arrow key` = cycle backwards in history.
+
+`Down arrow key` = cycle downwards in history.
+
+`tab` = in many shells for autofill
+
+`Ctrl + C` = kill process
+
+`Control + Z` = multitask, i.e. current process in background while your are returned to command line
+
+`!!` = run command twice
+
+`Control + L` = new terminal.
+
+### What is Bash?
+
+**BASH = *B*ourne *A*gain *Sh*ell.
+
+Here are some basic commands:
+
+`pwd` = prints current working directory to shell.
+
+`cd` = change directories.
+On can move to a certain directory by giving the full path starting with `/` or move relatively. `..` allows you to move upwards.
+
+`ls` = lists contents of the directory.
+`-a` flag shows hidden files,
+`-l` flag shows file permissions.
+
+`less` = read content of the file in terminal
+
+`cat` = read content of the file in terminal
+
+`mkdir` = creates new directory.
+
+`touch` = creates new file.
+
+`mv` = move or rename a file
+
+`rm` = delete a file.
+With `-r` flag it deletes a directory.
+Use `-f` to delete protected files.
+
+`cp` = copy a file to a new directory.
+
+`echo` = print to the terminal.
+For writing directly into the file using `echo "Text" > filename`.
+
+`head` = prints the first lines of a file (default 10).
+Use `-n 5` to show only the first 5 lines.
+
+`tail` = prints the last lines of a file (default 10).
+Use `-f` to follow a file live as new lines are added, e.g. log files.
+
+`chown` = change the owner (and group) of a file or directory, e.g. `chown user:group filename`.
+With `-R` flag it applies to all contents of a directory.
+
+`chmod` = change the permissions (read `r`, write `w`, execute `x`) of a file, e.g. `chmod +x script.sh` makes a script executable.
+
+`man` = shows the manual page of a command, e.g. `man ls`.
+Quit with `q`.
+
+#### Command options and flags
+
+`--version` flag = prints current version
+`--help` flag = prints instructions
+
+There are long (usually two hyphens) and short forms (one hyphen).
+Short forms allow you to easily chain different flags together.
+
 #### Difference between PowerShell and Bash
 Windows PowerShell has aliases such as `ls`, `cd`, `pwd`, `rm`, `mkdir`,
 but they behave differently and other Bash commands are missing.
