@@ -19,8 +19,9 @@ VS Code considers projects to be `workspaces`.
 Some basic bash commands make it easy to work with the terminal.
 
 #### Difference between PowerShell and Bash
-Windows PowerShell does not support Bash commands,
-but VS Code makes it easy to use Bash
+Windows PowerShell has aliases such as `ls`, `cd`, `pwd`, `rm`, `mkdir`,
+but they behave differently and other Bash commands are missing.
+VS Code makes it easy to use Bash
 as the integrated terminal.
 
 To do so, create the following file:
@@ -84,131 +85,167 @@ to see the live changes.
 
 `Ctrl + Shift + P` = opens command palette.
 
-## Git
+### Nano
+Typically Linux environments include Vi or Vim as a text editor.
+But Vim is quite user-unfriendly.
 
-### Working with Nano
-Typically Linux environments include Vi or Vim as a text editor. But Vim is quite user-unfriendly.
+Editors like Emacs or Nano may need to be installed manually,
+but are easier to understand.
+*Nano* is often preinstalled, e.g. on Ubuntu, Debian.
 
-Editors like Emacs or Nano may need to be installed manually, but are easier to understand.
 To open a file, enter `nano <filename>`.
 Once the file is open,
 one sees the version of Nano running
-and the name of the file that is running as well as its content below.
+and the name of the file to be edited as well as its content below.
 
-At the bottom there is a list of available keyboard shortcuts, where `^G` (= Help) stands for `Ctrl + G`, and `M-` stands for a combination with the `Alt` key.
+At the bottom there is a list of available keyboard shortcuts, where `^G` (= Help) stands for `Ctrl + G`, and `M-` (*Meta key*) stands for a combination with the `Alt` key (or `ESC`).
 
-To edit a file, press `^O` = `Ctrl + O` in order for the changes being added to the file.
+After editing a file,
+press `^O` = `Ctrl + O` in order for the changes being saved in the file.
 
-`^C` = `Ctrl + C` allows one to cancel and go back to editing the file.
+`^C` = `Ctrl + C` allows one to cancel and go back to editing the file (inside the prompt).
 
 `^X = Ctrl + X` allows one to exit Nano.
+Nano will ask to save unsaved changes.
+
+## Git
 
 ### Version control
 
-Version control system: Git, SVN, Mercurial
+Version control system: Git, SVN, Mercurial.
 
 These tools make it possible to track
 and manage changes in the project.
 
-Usually, a version control system is merged with a **Version control provider**, e.g. GitHub or GitLab.
+Usually, a version control system is used together with a **version control provider**,
+e.g. GitHub or GitLab.
+The version control system can be hosted on the version control provider (in a cloud).
+The project is available on the version control provider for all co-workers,
+and all co-worker can track the changes made.
 
 ### Purpose of sites like GitHub / GitLab
 
 A version control provider offers cloud storage for version-controlled projects.
 
-Features of  version control
-- boosts collaboration
-- open source or private
-- branching
-- issue tracker (assign, claim, etc.)
+Features of version control providers:
+- boosts collaboration,
+- public or private repositories,
+- branching,
+- issue tracker (assign, claim, etc.).
 
 ### Repositories
 
 When creating a new repository on GitHub,
 there are typically the following options:
-- *choose a template:* special kind of repository that one can use as a springboard for new repositories (usually not yet set up);
-later on useful, e.g. for issue templates or documentation;
+- *choose a template:* special kind of repository that one can use as a springboard;
+    later on useful, e.g. for issue templates or documentation;
 - *select an owner:* the private account or an organization;
 - *choose a name of the repository:* do not use spaces;
-- *choose whether repository is public or private;*
+- *add optional files:* `README.md`, `.gitignore` and licenses.
+- *choose whether repository is public or private*.
 
-A README file will appear on the repositories homepage: good for documentation.
+A `README.md` (if ticked yes) file will appear on the repository's homepage:
+good for documentation.
 
-A `.gitignore` file allows to specify files which should be ignored by Git.
+A `.gitignore` file allows one to specify files which should be ignored / not tracked by Git.
 
 To clone the repository, run in the terminal:
 ```bash
-    git clone git@github.com:username/repository-name
+git clone git@github.com:username/repository-name.git
 ```
 
 ### Security Requirements
 
-This chapter deals with handling security requirements such as SSH and GPG keys in the context of GitHub.
+This Section deals with handling security requirements such as SSH and GPG keys in the context of GitHub.
 
-Both use public-private pair.
+Both use a public-private key pair.
 Keep the private key on the personal laptop
 and share a public key with people who need to verify the authenticity.
 
 #### GPG
-GPG means Gnu Privacy Guard. GPG keys are used to sign files or commits.
+GPG means GNU Privacy Guard. GPG keys are used to sign files or commits.
 
-To generate a GPG key, need to run (in Bash)
+To generate a GPG key, run
 
 ```bash
 gpg --full-generate-key
 ```
 One will be asked to provide a passphrase.
 
-The GPG key will be stored in a hidden and encrypted directory.
+The GPG key will be stored in the hidden directory `-/.gnupg`.
+The private key is protected by the passphrase.
 
-To see the list of the public GPG keys, run
+To see the list of the public GPG keys and the key ID, run
+```bash
+gpg --list-keys --keyid-format=long
+```
+To list the private GPG keys, run
 ```bash
 gpg --list-secret-keys --keyid-format=long
 ```
-
 To get the public key, use
-
 ```bash
 gpg --armor --export "<key id>"
 ```
 
-As `key id` one can use the e-mail address that is provided when creating the key or the short key id provided after
+As `key id` one can use the e-mail address
+that is provided when creating the key or the short key id provided after
 ```bash
 sec   rsa3072/KEY_ID
 ```
 
-Then save the GPG key on GitHub.
+Then save the GPG key on GitHub:
+```
+GitHub > Settings > SSH and GPG keys > New GPG key
+```
+Paste the whole output,
+including the `BEGIN` and `END` lines.
 
 In order to set the key as signing key, run
 ```bash
 git config --global user.signingkey KEY_ID
 ```
-The flag `git -S -m "add: my signed commit"` is used to sign a key.
-
-**Caution:** The setup seems to work properply only with a Linux system.
-
+The flag `git commit -S -m "add: my signed commit"` is used to sign a commit.
 
 #### SSH
 
-SSH stands for Secure SHell.
-They are used to authenticate a remote connection to a server.
+SSH stands for Secure Shell.
+SSH keys are used to authenticate a remote connection to a server.
 
 To generate an SSH key, run
 
 ```bash
-ssh-keygen -t ed25519 -C "mail-address"
+ssh-keygen -t ed25519 -C "mail@example.com"
 ```
 
 As for the GPG-key, one will be asked to provide a passphrase.
 
-One can add SSH keys to GitHub as well and use them to sign commits. Both seem to be more suitable in a Linux system.
+One can add SSH keys to GitHub as well and use them to sign commits.
 
-### Push
+### Basic Git workflow
 
-To setup version control on a project using Git, one needs to 
-call `git init` after having set up a new repository on GitHub.
+To setup version control on a project using Git,
+start with 
+```bash
+git init
+```
+This creates a new local repository.
+To connect with the version control provider,
+and make `git push` work,
+type in the terminal
+```bash
+git remote add origin <url>
+```
 
-A hidden `.git` file will be added to the repository,
+If the repository already exists on GitHub,
+run instead
+```bash
+git clone https://github.com/username/repository-name.git custom-folder
+```
+The `custom-folder` is optional.
+Most of the time, one clones the full repository.
+
+A hidden `.git` folder will be added to the repository,
 which will track the Git history.
 
 With `git status` one can ask for the current status on the branch that is checked out.
@@ -217,6 +254,7 @@ By default one will be on the main branch (but it is possible to branch out feat
 
 The status provides the following states for files:
 
+- 'New file': This is a staged new file (not tracked up to now).
 - 'Untracked': This file is new to the repository.
 - 'Modified': This file existed and has been changed.
 - 'Deleted': This file has existed and is now deleted.
@@ -234,17 +272,21 @@ git add .
 ```
 Unstage a staged file
 ```bash
-git reset name-of-file
+git restore --staged name-of-file
 ```
 
-Afterwards, commit the file by writing
+Afterwards, commit the staged changes by writing
 ```bash
 git commit -m "short message"
 ```
 
 One can call `git log` to view the history of commits.
-To add the newly commited work to the remote repository on GitHub,
+To add the newly committed work to the remote repository on GitHub,
 type `git push`.
+The first push of a branch usually needs
+```bash
+git push -u origin main
+```
 
 ### Contributing to other people's repository
 
@@ -255,11 +297,7 @@ one needs therefore to *fork* the repository before.
 After forking a (public) repository,
 the 'forker' is the owner of the copy of the repository.
 
-Then, to work remotely on it, clone it (e.g. using SSH).
-
-Looking at the remote, the local clone configures works with `git remote -v`
-Note that this will set the fork as the origin
-and changes in the original repository will not be updated automatically.
+Then, to work locally on it, clone it (e.g. using SSH).
 
 To update the fork, one needs to grab the SSH URL, then run
 ```bash
@@ -267,21 +305,24 @@ git remote add upstream git@github.com:original-repo-username/repo-name.git
 ```
 *Remark.*
 One can use anything else but `upstream` in the command,
-but this seems to the standard convention.
+but this seems to be the standard convention.
 
-Now type `git fetch upstream` and `git merge upstream/main` in order to get the last changes from the original project.
+Now type `git fetch upstream` and `git merge upstream/main` in order to get the latest changes from the original project.
 
 ### Creating new branches
 
-*Branch* = deviation from the main history
+*Branch* = independent line of development.
 
 `git branch` allows one to view the existing branches.
 The asterisk indicates the branch that is currently checked out.
 
 Creating a new branch works with
-`git branch branch_name`.
 
-To change to the new branch `branch_name` one calls
+```bash
+git branch branch_name
+```
+
+To change to the new branch `branch_name`, one calls
 ```bash
 git checkout branch_name
 ```
@@ -292,7 +333,7 @@ git switch branch_name
 
 Creating and switching to the new branch works in one go using
 ```bash
-git checkout -b new_branch
+git checkout -b branch_name
 ```
 or
 ```bash
@@ -306,42 +347,66 @@ git push -u origin branch_name
 
 ### Pull Requests
 
-To finally merge changes, one needs to call a *pull request* (*PR*).
+To finally merge changes, one needs to create a *pull request* (*PR*).
+PRs are a GitHub feature.
+
+It is possible to merge branches locally without a pull request using `merge`.
+After the implementation of a new feature on a side branch `branch_name`,
+one can merge the new feature to the main branch as follows:
+```bash
+git switch main
+git merge branch_name
+```
+It is best practice to check the compatibility of the new feature before merging.
+Therefore, doing a pull request and a code review is the better way of merging branches.
 
 When creating a pull request on GitHub
 - `base` is the target for the merge,
-- `compare` is the new content that should be merged.
+- `compare` is the new content that should be merged. It is the head branch.
 
 GitHub will show a diff that highlights the differences between the branches.
 
-After the pull request, the changes usually go through a `code review`.
+After the pull request, the changes usually go through a *code review*.
+The next steps after PR depend on the branch protection rules.
+When collaborating, it is best practice to define those rules before.
 
-If one receives a pull request, one will see a message `Merge pull request #1`.
-There are three strategies to this:
-1) `Merge`: Brings all of the commits from the head branch, then creates another commit to process and log the merge.
-2) `Squash and Merge`: ALL of the commits from the heads branch will be smashed into a single commit. The new commit will be merged into the base branch without creating a merge commit.
-3) `Rebase and Merge`: All commits will be reset to come after the latest commit on the base branch. Then one merges the head without a merge commit.
+If one receives a pull request on GitHub,
+one has to approve it and the merge commit will
+look something like this: `Merge pull request #1` (for the `Merge` method below).
+
+There are three merge methods:
+1) `Merge`: Brings all of the commits from the head branch, then creates a merge commit that joins the two histories.
+2) `Squash and Merge`: ALL of the commits from the head branch will be smashed into a single commit. The new commit will be merged into the base branch without creating a merge commit.
+3) `Rebase and Merge`: All commits will replayed (i.e. re-applied with new hashes) on the base branch. The merge itself happens without a commit.
 
 ### Code Review Processes
 
 1) Confirm that **CI** (= **C**ontinuous **I**ntegration) passes (roughly code must meet style guidelines and passes tests).
-2) If that passes, they will look at the actual code.
+2) If that passes, the reviewer will look at the actual code.
 3) Pull down the changes locally.
 
-What maintainers might give as a feedback:
+What maintainers might give as feedback:
 - comment with their request
-- official 'request changes' comment -> this blocks the pull request from being merged.
+- official *request changes* comment -> usually this blocks the pull request from being merged (refer to the GitHub Rulesets).
 
 ### GitHub Pages
-Solid option for deploying
+Solid option for deploying:
 - static websites,
 - applications that do not require a back-end server to handle logic (i.e. run entirely client-side).
 
-The webpage will by default be available on `user_name.github.io`
-and a repository on `user_name.github.io/repo_name`.
+One can do a personal webpage on GitHub as follows:
+- Create a repository with repository name `user_name.github.io`.
+- Then the user site is `https://user_name.github.io`.
+
+Any other repository can be seen on `https://user_name.github.io/repo_name`.
+To do so, one has to choose a branch or GitHub Actions as a sources in `Settings > Pages`.
 
 ### Remaining in Sync with Remote Counterparts
 
-`git fetch`, `git pull`, `git pull --rebase`
+`git fetch` = download remote changes without changing local branches,
+
+`git pull` - `git fetch` merge into current branch,
+
+`git pull --rebase` - `git fetch` merge into current branch and replay local commits on top.
 
 To be continued.
