@@ -30,7 +30,7 @@ To do so, create the following file:
 If not yet done, install `Git Bash`.
 
 Add the following configuration:
-```
+```json
 {
   "terminal.integrated.defaultProfile.windows": "Git Bash"
 }
@@ -43,11 +43,11 @@ The differences to the Windows PowerShell are huge.
 
 For example to create a new file `new_file.txt`,
 the Bash command is
-```
+```bash
 touch new_file.txt
 ```
 The Windows PowerShell command is
-```
+```powershell
 New-Item new_file.txt
 ```
 
@@ -129,7 +129,7 @@ A README file will appear on the repositories homepage: good for documentation.
 A `.gitignore` file allows to specify files which should be ignored by Git.
 
 To clone the repository, run in the terminal:
-```
+```bash
     git clone git@github.com:username/repository-name
 ```
 
@@ -146,7 +146,7 @@ GPG means Gnu Privacy Guard. GPG keys are used to sign files or commits.
 
 To generate a GPG key, need to run (in Bash)
 
-```
+```bash
 gpg --full-generate-key
 ```
 One will be asked to provide a passphrase.
@@ -154,25 +154,25 @@ One will be asked to provide a passphrase.
 The GPG key will be stored in a hidden and encrypted directory.
 
 To see the list of the public GPG keys, run
-```
+```bash
 gpg --list-secret-keys --keyid-format=long
 ```
 
 To get the public key, use
 
-```
+```bash
 gpg --armor --export "<key id>"
 ```
 
 As `key id` one can use the e-mail address that is provided when creating the key or the short key id provided after
-```
+```bash
 sec   rsa3072/KEY_ID
 ```
 
 Then save the GPG key on GitHub.
 
 In order to set the key as signing key, run
-```
+```bash
 git config --global user.signingkey KEY_ID
 ```
 The flag `git -S -m "add: my signed commit"` is used to sign a key.
@@ -187,7 +187,7 @@ They are used to authenticate a remote connection to a server.
 
 To generate an SSH key, run
 
-```
+```bash
 ssh-keygen -t ed25519 -C "mail-address"
 ```
 
@@ -217,20 +217,20 @@ The status provides the following states for files:
 Here are some useful basic commands:
 
 Stage a file:
-```
+```bash
 git add name-of-file
 ```
 Stage all unstaged files
-```
+```bash
 git add .
 ```
 Unstage a staged file
-```
+```bash
 git reset name-of-file
 ```
 
 Afterwards, commit the file by writing
-```
+```bash
 git commit -m "short message"
 ```
 
@@ -254,7 +254,7 @@ Note that this will set the fork as the origin
 and changes in the original repository will not be updated automatically.
 
 To update the fork, one needs to grab the SSH URL, then run
-```
+```bash
 git remote add upstream git@github.com:original-repo-username/repo-name.git
 ```
 *Remark.*
@@ -274,25 +274,25 @@ Creating a new branch works with
 `git branch branch_name`.
 
 To change to the new branch `branch_name` one calls
-```
+```bash
 git checkout branch_name
 ```
 or
-```
+```bash
 git switch branch_name
 ```
 
 Creating and switching to the new branch works in one go using
-```
+```bash
 git checkout -b new_branch
 ```
 or
-```
+```bash
 git switch -c feature
 ```
 
 To push the new branch to the origin, type in the command line 
-```
+```bash
 git push -u origin branch_name
 ```
 
